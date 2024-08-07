@@ -10,33 +10,34 @@ using System.Windows.Forms;
 
 namespace OOP2DatabaseConnectionFinal
 {
-    public partial class Form1 : Form
+    public partial class PatientManagement : BasicControl
     {
-        public Form1()
+        public PatientManagement() : base()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void PatientManagement_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'dataSet11.patient' table. You can move, or remove it, as needed.
-            this.patientTableAdapter1.Fill(this.dataSet11.patient);
+            this.patientTableAdapter.Fill(this.dataSet1.patient);
+
         }
 
         //A row is validated when a new row is added and the user clicks off.
         private void dataGridView1_RowValidated(object sender, DataGridViewCellEventArgs e)
         {
             //Checks if the row is an empty row. Don't add this row.
-            if (dataGridView1.Rows[e.RowIndex].IsNewRow)
+            if (patientTable.Rows[e.RowIndex].IsNewRow)
                 return;
 
             //cast the data at the index of the row added and captured by the event handler. Cast it to a DataRowView.
-            var row = (DataRowView)dataGridView1.Rows[e.RowIndex].DataBoundItem;
+            var row = (DataRowView)patientTable.Rows[e.RowIndex].DataBoundItem;
 
             if (row != null && row.Row.RowState == DataRowState.Added)
             {
                 //send the row to mariaDB using the .NET data binding adapter
-                patientTableAdapter1.Insert(row.Row.Field<int>("patient_number"), row.Row.Field<string>("first_name"), row.Row.Field<string>("middle_name"), row.Row.Field<string>("last_name"), row.Row.Field<string>("contact_number"));
+                patientTableAdapter.Insert(row.Row.Field<int>("patient_number"), row.Row.Field<string>("first_name"), row.Row.Field<string>("middle_name"), row.Row.Field<string>("last_name"), row.Row.Field<string>("contact_number"));
             }
 
         }

@@ -10,6 +10,8 @@
 
 #pragma warning disable 1591
 
+using System;
+
 namespace OOP2DatabaseConnectionFinal {
     
     
@@ -1015,7 +1017,7 @@ namespace OOP2DatabaseConnectionFinal.DataSet1TableAdapters {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((string)(first_name));
             }
             if ((middle_name == null)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = null;
+                this.Adapter.InsertCommand.Parameters[2].Value = DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[2].Value = ((string)(middle_name));
