@@ -48,6 +48,12 @@
   <ItemGroup>
     <Compile Include="Classes\Room.cs" />
     <Compile Include="Classes\Ward.cs" />
+    <Compile Include="controls\Test.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="controls\Test.Designer.cs">
+      <DependentUpon>Test.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -84,6 +90,9 @@
     <Compile Include="controls\RoomManagement.Designer.cs">
       <DependentUpon>RoomManagement.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="controls\Test.resx">
+      <DependentUpon>Test.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainPage.resx">
       <DependentUpon>MainPage.cs</DependentUpon>
     </EmbeddedResource>

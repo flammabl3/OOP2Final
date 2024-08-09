@@ -1,6 +1,6 @@
-﻿namespace OOP2DatabaseConnectionFinal
+﻿namespace OOP2DatabaseConnectionFinal.controls
 {
-    partial class PatientManagement
+    partial class Test
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.patientTable = new System.Windows.Forms.DataGridView();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.patientnumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.firstnameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.middlenameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -37,35 +37,30 @@
             this.contactnumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patientBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataSet1 = new OOP2DatabaseConnectionFinal.DataSet1();
-            this.patientBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.dataSet2 = new OOP2DatabaseConnectionFinal.DataSet2();
             this.patientTableAdapter = new OOP2DatabaseConnectionFinal.DataSet1TableAdapters.patientTableAdapter();
-            ((System.ComponentModel.ISupportInitialize)(this.patientTable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.patientBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.patientBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet2)).BeginInit();
             this.SuspendLayout();
             // 
-            // patientTable
+            // dataGridView1
             // 
-            this.patientTable.AutoGenerateColumns = false;
-            this.patientTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.patientTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridView1.AutoGenerateColumns = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.patientnumberDataGridViewTextBoxColumn,
             this.firstnameDataGridViewTextBoxColumn,
             this.middlenameDataGridViewTextBoxColumn,
             this.lastnameDataGridViewTextBoxColumn,
             this.contactnumberDataGridViewTextBoxColumn});
-            this.patientTable.DataSource = this.patientBindingSource;
-            this.patientTable.Location = new System.Drawing.Point(0, 0);
-            this.patientTable.Name = "patientTable";
-            this.patientTable.RowHeadersWidth = 82;
-            this.patientTable.RowTemplate.Height = 33;
-            this.patientTable.Size = new System.Drawing.Size(1153, 524);
-            this.patientTable.TabIndex = 0;
-            this.patientTable.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView1_DefaultValuesNeeded);
-            this.patientTable.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_RowValidated);
+            this.dataGridView1.DataSource = this.patientBindingSource;
+            this.dataGridView1.Location = new System.Drawing.Point(229, 159);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 82;
+            this.dataGridView1.RowTemplate.Height = 33;
+            this.dataGridView1.Size = new System.Drawing.Size(700, 427);
+            this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // patientnumberDataGridViewTextBoxColumn
             // 
@@ -117,40 +112,27 @@
             this.dataSet1.DataSetName = "DataSet1";
             this.dataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // patientBindingSource1
-            // 
-            this.patientBindingSource1.DataMember = "patient";
-            this.patientBindingSource1.DataSource = this.dataSet2;
-            // 
-            // dataSet2
-            // 
-            this.dataSet2.DataSetName = "DataSet2";
-            this.dataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // patientTableAdapter
             // 
             this.patientTableAdapter.ClearBeforeFill = true;
             // 
-            // PatientManagement
+            // Test
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.patientTable);
-            this.Name = "PatientManagement";
-            this.Size = new System.Drawing.Size(1153, 527);
-            this.Load += new System.EventHandler(this.PatientManagement_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.patientTable)).EndInit();
+            this.Controls.Add(this.dataGridView1);
+            this.Name = "Test";
+            this.Size = new System.Drawing.Size(964, 637);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.patientBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.patientBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet2)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView patientTable;
+        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn patientnumberDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn firstnameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn middlenameDataGridViewTextBoxColumn;
@@ -159,7 +141,5 @@
         private System.Windows.Forms.BindingSource patientBindingSource;
         private DataSet1 dataSet1;
         private DataSet1TableAdapters.patientTableAdapter patientTableAdapter;
-        private System.Windows.Forms.BindingSource patientBindingSource1;
-        private DataSet2 dataSet2;
     }
 }
