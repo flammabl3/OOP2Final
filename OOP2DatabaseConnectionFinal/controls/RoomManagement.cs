@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -20,19 +21,22 @@ namespace OOP2DatabaseConnectionFinal
         List<Ward> wardsToBind;
         List<Room> roomsFromData;
         List<Room> roomsToBind;
+        List<Patient> patientsToBind;
+        List<int> existingPatientNumbers;
         bool isLoaded;
         public RoomManagement() : base()
         {
             wardsToBind = new List<Ward>();
             roomsFromData = new List<Room>();
             roomsToBind = new List<Room>();
+            patientsToBind = new List<Patient>();
+            existingPatientNumbers = new List<int>();
             isLoaded = false;
             InitializeComponent();
         }
 
         private void RoomManagement_Load(object sender, EventArgs e)
         {
-            patientTableAdapter.Fill(dataSet2.patient);
 
             //fill the dataset defined by the designer and fill the rows
             roomTableAdapter.Fill(dataSet2.room);
@@ -85,6 +89,12 @@ namespace OOP2DatabaseConnectionFinal
             isLoaded = true;
 
             fillDataGrid();
+
+            UpdatePatientNumberOptions();
+
+            //make a note of what patient numbers are present
+            updateExistingPatients();
+
         }
 
         private void comboBox1_SelectedValueChanged(object sender, EventArgs e)
@@ -110,6 +120,7 @@ namespace OOP2DatabaseConnectionFinal
         }
 
 
+        //Use a custom query to find only the beds which match the selected room and ward.
         private void fillDataGrid()
         {
             if (comboBox1.Text != "" && comboBox2.SelectedValue != null)
@@ -147,15 +158,108 @@ namespace OOP2DatabaseConnectionFinal
 
         private void dataGridView1_RowValidated(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridView1.Rows[e.RowIndex].IsNewRow)
+            label3.Visible = false;
+
+            if (dataGridView1.Rows[e.RowIndex].IsNewRow || dataGridView1.Rows[e.RowIndex].Cells[3].Value == DBNull.Value)
                 return;
 
             var row = (DataRowView)dataGridView1.Rows[e.RowIndex].DataBoundItem;
 
-            if (row != null && row.Row.RowState == DataRowState.Added)
+            if (existingPatientNumbers.Contains(row.Row.Field<int>("patient_number")) && 
+                (row.Row.RowState == DataRowState.Added || row.Row.RowState == DataRowState.Modified))
             {
-                bedTableAdapter.Insert(row.Row.Field<int>("bed_number"), row.Row.Field<int>("patient_number"), row.Row.Field<int>("room_number"), row.Row.Field<string>("ward_letter"));
+                dataGridView1.Rows[e.RowIndex].Cells[3].Value = DBNull.Value;
+                label3.Visible = true;
+                return;
+            }
+
+            if (row != null)
+            {
+                if (row.Row.RowState == DataRowState.Added)
+                {
+                    if (Convert.ToString(dataGridView1.Rows[e.RowIndex].Cells[3].EditedFormattedValue) == "No Patient")
+                        bedTableAdapter.Insert(row.Row.Field<int>("bed_number"), null, row.Row.Field<int>("room_number"), row.Row.Field<string>("ward_letter"));
+                    else
+                        bedTableAdapter.Insert(row.Row.Field<int>("bed_number"), row.Row.Field<int>("patient_number"), row.Row.Field<int>("room_number"), row.Row.Field<string>("ward_letter"));
+                } else if (row.Row.RowState == DataRowState.Modified)
+                {
+                    if (Convert.ToString(dataGridView1.Rows[e.RowIndex].Cells[3].EditedFormattedValue) == "No Patient")
+                        row.Row.SetField<int?>("patient_number", null);
+                    using (var connection = new System.Data.Odbc.OdbcConnection(OOP2DatabaseConnectionFinal.Properties.Settings.Default.ConnectionString))
+                    {
+                        connection.Open();
+                        string query = "UPDATE bed SET bed_number = ?, patient_number = ?, room_number = ?, ward_letter = ? WHERE (bed_number = ? AND room_number = ? AND ward_letter = ?)";
+                        using (var command = new System.Data.Odbc.OdbcCommand(query, connection))
+                        {
+                            command.Parameters.AddWithValue("bed_number", row.Row.Field<int>("bed_number"));
+
+                            if (row.Row.Field<int?>("patient_number") == null)
+                                command.Parameters.AddWithValue("patient_number", DBNull.Value);
+                            else
+                                command.Parameters.AddWithValue("patient_number", row.Row.Field<int?>("patient_number"));
+
+                            command.Parameters.AddWithValue("room_number", row.Row.Field<int>("room_number"));
+                            command.Parameters.AddWithValue("ward_letter", row.Row.Field<string>("ward_letter"));
+
+                            command.Parameters.AddWithValue("bed_number_ck", row.Row.Field<int>("bed_number"));
+                            command.Parameters.AddWithValue("room_number_ck", row.Row.Field<int>("room_number"));
+                            command.Parameters.AddWithValue("ward_letter_ck", row.Row.Field<string>("ward_letter"));
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                }
+            }
+
+            //update the list of patient numbers.
+            updateExistingPatients();
+        }
+
+        private void updateExistingPatients()
+        {
+            foreach (DataRowView rowView in bedBindingSource)
+            {
+                if (rowView.Row.Field<int?>("patient_number") != -1)
+                {
+                    DataRow r = rowView.Row;
+                    if (r["patient_number"] != DBNull.Value)
+                        existingPatientNumbers.Add(Convert.ToInt32(r["patient_number"]));
+                }
             }
         }
+
+        private void UpdatePatientNumberOptions()
+        {
+
+            patientTableAdapter.Fill(dataSet2.patient);
+
+            //blank item to facilitate adding a bed with no patient
+            patientsToBind.Add(new Patient());
+            foreach (DataRow row in dataSet2.patient.Rows)
+            {
+                int patientNumber = Convert.ToInt32(row["patient_number"]);
+                string firstName = Convert.ToString(row["first_name"]);
+                string lastName = Convert.ToString(row["last_name"]);
+                Patient patient = new Patient();
+                patient.PatientNumber = patientNumber;
+                patient.FirstName = firstName;
+                patient.LastName = lastName;
+                patientsToBind.Add(patient);
+            }
+
+            patientnumberDataGridViewTextBoxColumn.DataSource = patientsToBind;
+
+            patientnumberDataGridViewTextBoxColumn.DisplayMember = "DisplayValue";
+            patientnumberDataGridViewTextBoxColumn.ValueMember = "PatientNumber";
+
+        }
+
+        private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            var row = (DataRowView)e.Row.DataBoundItem;
+
+            bedTableAdapter.Delete(row.Row.Field<int>("bed_number"), row.Row.Field<int>("patient_number"),
+                row.Row.Field<int>("room_number"), row.Row.Field<string>("ward_letter"));
+        }
+
     }
 }

@@ -30,16 +30,16 @@
         {
             this.components = new System.ComponentModel.Container();
             this.patientTable = new System.Windows.Forms.DataGridView();
-            this.patientnumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.firstnameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.middlenameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lastnameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.contactnumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patientBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataSet1 = new OOP2DatabaseConnectionFinal.DataSet1();
             this.patientBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.dataSet2 = new OOP2DatabaseConnectionFinal.DataSet2();
             this.patientTableAdapter = new OOP2DatabaseConnectionFinal.DataSet1TableAdapters.patientTableAdapter();
+            this.patientnumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.firstnameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.middlenameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lastnameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contactnumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.patientTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.patientBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
@@ -59,53 +59,14 @@
             this.contactnumberDataGridViewTextBoxColumn});
             this.patientTable.DataSource = this.patientBindingSource;
             this.patientTable.Location = new System.Drawing.Point(0, 0);
+            this.patientTable.Margin = new System.Windows.Forms.Padding(2);
             this.patientTable.Name = "patientTable";
             this.patientTable.RowHeadersWidth = 82;
             this.patientTable.RowTemplate.Height = 33;
-            this.patientTable.Size = new System.Drawing.Size(1153, 524);
+            this.patientTable.Size = new System.Drawing.Size(576, 272);
             this.patientTable.TabIndex = 0;
             this.patientTable.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView1_DefaultValuesNeeded);
             this.patientTable.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_RowValidated);
-            // 
-            // patientnumberDataGridViewTextBoxColumn
-            // 
-            this.patientnumberDataGridViewTextBoxColumn.DataPropertyName = "patient_number";
-            this.patientnumberDataGridViewTextBoxColumn.HeaderText = "patient_number";
-            this.patientnumberDataGridViewTextBoxColumn.MinimumWidth = 10;
-            this.patientnumberDataGridViewTextBoxColumn.Name = "patientnumberDataGridViewTextBoxColumn";
-            this.patientnumberDataGridViewTextBoxColumn.Width = 200;
-            // 
-            // firstnameDataGridViewTextBoxColumn
-            // 
-            this.firstnameDataGridViewTextBoxColumn.DataPropertyName = "first_name";
-            this.firstnameDataGridViewTextBoxColumn.HeaderText = "first_name";
-            this.firstnameDataGridViewTextBoxColumn.MinimumWidth = 10;
-            this.firstnameDataGridViewTextBoxColumn.Name = "firstnameDataGridViewTextBoxColumn";
-            this.firstnameDataGridViewTextBoxColumn.Width = 200;
-            // 
-            // middlenameDataGridViewTextBoxColumn
-            // 
-            this.middlenameDataGridViewTextBoxColumn.DataPropertyName = "middle_name";
-            this.middlenameDataGridViewTextBoxColumn.HeaderText = "middle_name";
-            this.middlenameDataGridViewTextBoxColumn.MinimumWidth = 10;
-            this.middlenameDataGridViewTextBoxColumn.Name = "middlenameDataGridViewTextBoxColumn";
-            this.middlenameDataGridViewTextBoxColumn.Width = 200;
-            // 
-            // lastnameDataGridViewTextBoxColumn
-            // 
-            this.lastnameDataGridViewTextBoxColumn.DataPropertyName = "last_name";
-            this.lastnameDataGridViewTextBoxColumn.HeaderText = "last_name";
-            this.lastnameDataGridViewTextBoxColumn.MinimumWidth = 10;
-            this.lastnameDataGridViewTextBoxColumn.Name = "lastnameDataGridViewTextBoxColumn";
-            this.lastnameDataGridViewTextBoxColumn.Width = 200;
-            // 
-            // contactnumberDataGridViewTextBoxColumn
-            // 
-            this.contactnumberDataGridViewTextBoxColumn.DataPropertyName = "contact_number";
-            this.contactnumberDataGridViewTextBoxColumn.HeaderText = "contact_number";
-            this.contactnumberDataGridViewTextBoxColumn.MinimumWidth = 10;
-            this.contactnumberDataGridViewTextBoxColumn.Name = "contactnumberDataGridViewTextBoxColumn";
-            this.contactnumberDataGridViewTextBoxColumn.Width = 200;
             // 
             // patientBindingSource
             // 
@@ -131,13 +92,49 @@
             // 
             this.patientTableAdapter.ClearBeforeFill = true;
             // 
+            // patientnumberDataGridViewTextBoxColumn
+            // 
+            this.patientnumberDataGridViewTextBoxColumn.DataPropertyName = "patient_number";
+            this.patientnumberDataGridViewTextBoxColumn.HeaderText = "patient_number";
+            this.patientnumberDataGridViewTextBoxColumn.MinimumWidth = 10;
+            this.patientnumberDataGridViewTextBoxColumn.Name = "patientnumberDataGridViewTextBoxColumn";
+            // 
+            // firstnameDataGridViewTextBoxColumn
+            // 
+            this.firstnameDataGridViewTextBoxColumn.DataPropertyName = "first_name";
+            this.firstnameDataGridViewTextBoxColumn.HeaderText = "first_name";
+            this.firstnameDataGridViewTextBoxColumn.MinimumWidth = 10;
+            this.firstnameDataGridViewTextBoxColumn.Name = "firstnameDataGridViewTextBoxColumn";
+            // 
+            // middlenameDataGridViewTextBoxColumn
+            // 
+            this.middlenameDataGridViewTextBoxColumn.DataPropertyName = "middle_name";
+            this.middlenameDataGridViewTextBoxColumn.HeaderText = "middle_name";
+            this.middlenameDataGridViewTextBoxColumn.MinimumWidth = 10;
+            this.middlenameDataGridViewTextBoxColumn.Name = "middlenameDataGridViewTextBoxColumn";
+            // 
+            // lastnameDataGridViewTextBoxColumn
+            // 
+            this.lastnameDataGridViewTextBoxColumn.DataPropertyName = "last_name";
+            this.lastnameDataGridViewTextBoxColumn.HeaderText = "last_name";
+            this.lastnameDataGridViewTextBoxColumn.MinimumWidth = 10;
+            this.lastnameDataGridViewTextBoxColumn.Name = "lastnameDataGridViewTextBoxColumn";
+            // 
+            // contactnumberDataGridViewTextBoxColumn
+            // 
+            this.contactnumberDataGridViewTextBoxColumn.DataPropertyName = "contact_number";
+            this.contactnumberDataGridViewTextBoxColumn.HeaderText = "contact_number";
+            this.contactnumberDataGridViewTextBoxColumn.MinimumWidth = 10;
+            this.contactnumberDataGridViewTextBoxColumn.Name = "contactnumberDataGridViewTextBoxColumn";
+            // 
             // PatientManagement
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.patientTable);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "PatientManagement";
-            this.Size = new System.Drawing.Size(1153, 527);
+            this.Size = new System.Drawing.Size(576, 274);
             this.Load += new System.EventHandler(this.PatientManagement_Load);
             ((System.ComponentModel.ISupportInitialize)(this.patientTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.patientBindingSource)).EndInit();
@@ -151,15 +148,15 @@
         #endregion
 
         private System.Windows.Forms.DataGridView patientTable;
+        private DataSet1 dataSet1;
+        private System.Windows.Forms.BindingSource patientBindingSource1;
+        private DataSet2 dataSet2;
+        private DataSet1TableAdapters.patientTableAdapter patientTableAdapter;
+        private System.Windows.Forms.BindingSource patientBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn patientnumberDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn firstnameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn middlenameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn lastnameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn contactnumberDataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource patientBindingSource;
-        private DataSet1 dataSet1;
-        private DataSet1TableAdapters.patientTableAdapter patientTableAdapter;
-        private System.Windows.Forms.BindingSource patientBindingSource1;
-        private DataSet2 dataSet2;
     }
 }

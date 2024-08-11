@@ -39,6 +39,13 @@ namespace OOP2DatabaseConnectionFinal
 
                 roomManagement.PlaceInTabControl(tabControl1, roomTab);
             }
+
+            else if (tabControl1.SelectedTab == scheduleTab)
+            {
+                ScheduleProcedure schedule = new ScheduleProcedure();
+
+                schedule.PlaceInTabControl(tabControl1, scheduleTab);
+            }
         }
     }
 }

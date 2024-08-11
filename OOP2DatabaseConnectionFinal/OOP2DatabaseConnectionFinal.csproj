@@ -8,10 +8,11 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>OOP2DatabaseConnectionFinal</RootNamespace>
     <AssemblyName>OOP2DatabaseConnectionFinal</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x64</PlatformTarget>
@@ -46,8 +47,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\MedicalStaff.cs" />
+    <Compile Include="Classes\Patient.cs" />
+    <Compile Include="Classes\Procedure.cs" />
     <Compile Include="Classes\Room.cs" />
     <Compile Include="Classes\Ward.cs" />
+    <Compile Include="controls\AddStaff.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="controls\AddStaff.Designer.cs">
+      <DependentUpon>AddStaff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="controls\ScheduleProcedure.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="controls\ScheduleProcedure.Designer.cs">
+      <DependentUpon>ScheduleProcedure.cs</DependentUpon>
+    </Compile>
     <Compile Include="controls\Test.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -90,6 +106,9 @@
     <Compile Include="controls\RoomManagement.Designer.cs">
       <DependentUpon>RoomManagement.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="controls\ScheduleProcedure.resx">
+      <DependentUpon>ScheduleProcedure.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="controls\Test.resx">
       <DependentUpon>Test.cs</DependentUpon>
     </EmbeddedResource>
@@ -107,6 +126,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="controls\RoomManagement.resx">
       <DependentUpon>RoomManagement.cs</DependentUpon>
@@ -145,6 +165,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Todo.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

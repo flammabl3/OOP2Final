@@ -10,8 +10,6 @@
 
 #pragma warning disable 1591
 
-using System;
-
 namespace OOP2DatabaseConnectionFinal {
     
     
@@ -866,7 +864,7 @@ namespace OOP2DatabaseConnectionFinal.DataSet1TableAdapters {
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("patient_number", global::System.Data.Odbc.OdbcType.Int, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "patient_number", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("first_name", global::System.Data.Odbc.OdbcType.VarChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "first_name", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("middle_name", global::System.Data.Odbc.OdbcType.VarChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "middle_name", global::System.Data.DataRowVersion.Current, true, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("middle_name", global::System.Data.Odbc.OdbcType.VarChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "middle_name", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("last_name", global::System.Data.Odbc.OdbcType.VarChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "last_name", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("contact_number", global::System.Data.Odbc.OdbcType.VarChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "contact_number", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.Odbc.OdbcCommand();
@@ -1017,7 +1015,7 @@ namespace OOP2DatabaseConnectionFinal.DataSet1TableAdapters {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((string)(first_name));
             }
             if ((middle_name == null)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = DBNull.Value;
+                throw new global::System.ArgumentNullException("middle_name");
             }
             else {
                 this.Adapter.InsertCommand.Parameters[2].Value = ((string)(middle_name));

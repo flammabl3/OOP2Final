@@ -31,6 +31,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.patientTab = new System.Windows.Forms.TabPage();
             this.roomTab = new System.Windows.Forms.TabPage();
+            this.scheduleTab = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -38,6 +39,7 @@
             // 
             this.tabControl1.Controls.Add(this.patientTab);
             this.tabControl1.Controls.Add(this.roomTab);
+            this.tabControl1.Controls.Add(this.scheduleTab);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -65,6 +67,16 @@
             this.roomTab.Text = "Room Management";
             this.roomTab.UseVisualStyleBackColor = true;
             // 
+            // scheduleTab
+            // 
+            this.scheduleTab.Location = new System.Drawing.Point(8, 39);
+            this.scheduleTab.Name = "scheduleTab";
+            this.scheduleTab.Padding = new System.Windows.Forms.Padding(3);
+            this.scheduleTab.Size = new System.Drawing.Size(1153, 527);
+            this.scheduleTab.TabIndex = 2;
+            this.scheduleTab.Text = "Schedule Procedure";
+            this.scheduleTab.UseVisualStyleBackColor = true;
+            // 
             // MainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -82,5 +94,6 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage patientTab;
         private System.Windows.Forms.TabPage roomTab;
+        private System.Windows.Forms.TabPage scheduleTab;
     }
 }

@@ -1,0 +1,8 @@
+﻿TODO:
+When a patient is added via patientmanagement, they should have an associated record be created as well.
+When a record is created, an associated patient_operations table should be made.
+When a procedure is added, it should be added to patient operations.
+Add staff screen should be added.
+All screens with textboxes need input validation.
+
+Finish insert statement for procedures

@@ -19,7 +19,7 @@ namespace OOP2DatabaseConnectionFinal
 
         private void PatientManagement_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'dataSet11.patient' table. You can move, or remove it, as needed.
+            // TODO: This line of code loads data into the 'dataSet11.patient' table. You can move, or remove it, as needed.;
             this.patientTableAdapter.Fill(this.dataSet1.patient);
 
         }
