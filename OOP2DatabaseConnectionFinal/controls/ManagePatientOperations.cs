@@ -26,13 +26,23 @@ namespace OOP2DatabaseConnectionFinal
     {
         List<Patient> patientsToBind;
         List<Room> roomsToBind;
+        List<Tuple<string, string>> procedureTypes;
 
         bool changedViaUser = false;
         public ManagePatientOperations()
         {
+            procedureTypes = new List<Tuple<string, string>>();
             patientsToBind = new List<Patient>();
             roomsToBind = new List<Room>();
             InitializeComponent();
+
+            procedureTypes.Add(new Tuple<string, string>("C", "Care"));
+            procedureTypes.Add(new Tuple<string, string>("S", "Surgery"));
+
+            proceduretypeDataGridViewTextBoxColumn.DataSource = procedureTypes;
+            proceduretypeDataGridViewTextBoxColumn.ValueMember = "Item1";
+            proceduretypeDataGridViewTextBoxColumn.DisplayMember = "Item2";
+
 
             dateTimePicker2.Enabled = false;
             dateTimePicker2.Visible = false;
@@ -51,6 +61,8 @@ namespace OOP2DatabaseConnectionFinal
 
             comboBox1_SelectedValueChanged(null, EventArgs.Empty);
             comboBox1.SelectedIndex = 0;
+
+
         }
 
         private void comboBox1_SelectedValueChanged(object sender, EventArgs e)
@@ -96,17 +108,14 @@ namespace OOP2DatabaseConnectionFinal
 
         private void updateDate(string query, DateTime time)
         {
-            using (var connection = new System.Data.Odbc.OdbcConnection(OOP2DatabaseConnectionFinal.Properties.Settings.Default.ConnectionString))
+            var connection = OdbcSingleton.Instance;
+
+            using (var command = new System.Data.Odbc.OdbcCommand(query, connection))
             {
-                connection.Open();
+                command.Parameters.AddWithValue("discharge_date", time);
+                command.Parameters.AddWithValue("patient_number", comboBox1.SelectedValue);
 
-                using (var command = new System.Data.Odbc.OdbcCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("discharge_date", time);
-                    command.Parameters.AddWithValue("patient_number", comboBox1.SelectedValue);
-
-                    command.ExecuteNonQuery();
-                }
+                command.ExecuteNonQuery();
             }
 
             BindPatients();
@@ -122,25 +131,47 @@ namespace OOP2DatabaseConnectionFinal
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            if (!isLoaded)
-                return;
-
-            if (changedViaUser)
+            try
             {
-                return;
+                if (!isLoaded)
+                    return;
+
+                if (changedViaUser)
+                {
+                    return;
+                }
+                if (dateTimePicker1.Value > dateTimePicker2.Value)
+                    throw new Exception("Admission date cannot be after discharge date!");
+                updateDate("UPDATE patient SET `admission_date`=? WHERE patient_number = ?", dateTimePicker1.Value);
+            } catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}",
+                            "Data Entry Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
             }
-            updateDate("UPDATE patient SET `admission_date`=? WHERE patient_number = ?", dateTimePicker2.Value);
         }
 
         private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
         {
-            if (!isLoaded)
-                return;
-            if (changedViaUser)
+            try
             {
-                return;
+                if (!isLoaded)
+                    return;
+                if (changedViaUser)
+                {
+                    return;
+                }
+                if (dateTimePicker1.Value > dateTimePicker2.Value)
+                    throw new Exception("Admission date cannot be after discharge date!");
+                updateDate("UPDATE patient SET `discharge_date`=? WHERE patient_number = ?", dateTimePicker2.Value);
+            } catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}",
+                            "Data Entry Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
             }
-            updateDate("UPDATE patient SET `discharge_date`=? WHERE patient_number = ?", dateTimePicker2.Value);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -151,19 +182,16 @@ namespace OOP2DatabaseConnectionFinal
                 DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
                 selectedRow.Cells[4].Value = DateTime.Now;
 
-                using (var connection = new System.Data.Odbc.OdbcConnection(OOP2DatabaseConnectionFinal.Properties.Settings.Default.ConnectionString))
+                var connection = OdbcSingleton.Instance;
+                string query = "UPDATE `procedure` SET `date_performed` = ? WHERE `procedure_id` = ?";
+                using (var command = new System.Data.Odbc.OdbcCommand(query, connection))
                 {
-                    connection.Open();
+                    command.Parameters.AddWithValue("date_performed", DateTime.Now);
+                    command.Parameters.AddWithValue("procedure_id", selectedRow.Cells[0].Value);
 
-                    string query = "UPDATE `procedure` SET `date_performed` = ? WHERE `procedure_id` = ?";
-                    using (var command = new System.Data.Odbc.OdbcCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("date_performed", DateTime.Now);
-                        command.Parameters.AddWithValue("procedure_id", selectedRow.Cells[0].Value);
-
-                        command.ExecuteNonQuery();
-                    }
+                    command.ExecuteNonQuery();
                 }
+               
             } else
             {
                 
@@ -202,6 +230,16 @@ namespace OOP2DatabaseConnectionFinal
                     patient.DischargeDate = Convert.ToDateTime(row["discharge_date"]);
                 patientsToBind.Add(patient);
             }
+        }
+
+        private void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            string errorHeader = dataGridView1.Columns[e.ColumnIndex].HeaderText;
+
+            MessageBox.Show($"Error in {errorHeader}, Row Number {e.RowIndex + 1}: {e.Exception.Message}",
+                            "Data Entry Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
         }
     }
 }

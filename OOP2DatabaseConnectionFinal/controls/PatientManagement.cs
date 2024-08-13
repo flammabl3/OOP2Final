@@ -11,6 +11,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
+
+/* Author: Harry Jung
+ * Inserts, deletes, or updates patients stored at the hospital.
+ * Patient ID is randomly generated and checked using a select statement to ensure it is not a duplicate. This logic to generate primary keys is found in
+ * the alreadyExists method and can be found in most other classes;
+ * SQL statements are executed w
+ */
+
 namespace OOP2DatabaseConnectionFinal
 {
     public partial class PatientManagement : BasicControl
@@ -22,7 +30,6 @@ namespace OOP2DatabaseConnectionFinal
 
         private void PatientManagement_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'dataSet11.patient' table. You can move, or remove it, as needed.;
             this.patientTableAdapter.Fill(this.dataSet1.patient);
 
         }

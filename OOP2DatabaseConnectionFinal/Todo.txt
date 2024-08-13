@@ -1,10 +1,10 @@
 ﻿TODO:
 
-Add staff screen should be added. (WIP)
+Add staff screen should be added. (DONE)
 All screens with textboxes need input validation.
-Screen to mark operations as done and discharge patients (WIP)
+Screen to mark operations as done and discharge patients (DONE)
 PatientManagement should have an ability to set and change dates. (MOVED)
 
-All screens should also have update and delete queries.
+All screens should also have update and delete queries. (Patient, Room)
 
 Finish insert statement for procedures (DONE)

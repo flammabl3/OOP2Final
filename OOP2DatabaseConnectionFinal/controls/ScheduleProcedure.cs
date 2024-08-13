@@ -7,9 +7,18 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
+
+/* Author: Harry Jung
+ * This page inserts a row into the procedure table, with an assigned patient and surgeon, but no date of completion.
+ * Surgeries should be marked complete in the patient operations tab.
+ * Only rooms marked as M will show up in the options.
+ * Insert is done with OdbcConnection.
+ */
 
 namespace OOP2DatabaseConnectionFinal
 {
@@ -43,7 +52,7 @@ namespace OOP2DatabaseConnectionFinal
                 string email = Convert.ToString(row[4]);
                 char staffType = Convert.ToChar(row[5]);
 
-                //only display patient rooms, because medical rooms won't have any beds to manage!
+                //Only doctors can perform surgery, not nurses!
                 if (comboBox2.Text == "Surgery")
                 {
                     if (staffType == 'D')
@@ -100,7 +109,7 @@ namespace OOP2DatabaseConnectionFinal
                     string roomName = Convert.ToString(row[2]);
                     char roomType = Convert.ToChar(row[3]);
 
-                    //only display patient rooms, because medical rooms won't have any beds to manage!
+                    //only display medical rooms, can't do surgery in a patient's room!
                     if (roomType == 'M')
                     {
                         Room room = new MedicalRoom(roomNumber, wardLetter, roomName);
@@ -146,24 +155,36 @@ namespace OOP2DatabaseConnectionFinal
 
             string procedureType = comboBox2.Text;
 
-            using (var connection = new System.Data.Odbc.OdbcConnection(OOP2DatabaseConnectionFinal.Properties.Settings.Default.ConnectionString))
-            {
-                connection.Open();
+            var connection = OdbcSingleton.Instance;
 
-                // procedure is a reserved keyword, have to escape it! Won't rename the table because the dataSet is already quite
-                // developed.
-                string query = "INSERT INTO `procedure`(`procedure_id`, `procedure_name`, `patient_number`, `operating_staff_id`, `date_performed`, `date_scheduled`, `procedure_type`, `room_number`, `ward_letter`) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            // procedure is a reserved keyword, have to escape it! Won't rename the table because the database is already quite
+            // developed, renaming a table could cause headaches.
+            string query = "INSERT INTO `procedure`(`procedure_id`, `procedure_name`, `patient_number`, `operating_staff_id`, `date_performed`, `date_scheduled`, `procedure_type`, `room_number`, `ward_letter`) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            try
+            {
                 using (var command = new System.Data.Odbc.OdbcCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("procedure_id", randomNumber());
-                    command.Parameters.AddWithValue("procedure_name", procedureName);
+
+                    if (Regex.IsMatch(procedureName, @"[^a-zA-Z0-9 ]"))
+                    {
+                        throw new Exception("Alphanumeric characters in the procedure name only please!");
+                    } 
+
+                    if (procedureName.Trim().Length == 0)
+                        throw new Exception("Procedure must have a name!");
+
+                    if (operatingStaffID == 0)
+                        throw new Exception("Please select a staff member to perform the operation!");
+
+                    command.Parameters.AddWithValue("procedure_name", procedureName.Trim());
                     command.Parameters.AddWithValue("patient_number", patientNumber);
                     command.Parameters.AddWithValue("operating_staff_id", operatingStaffID);
                     command.Parameters.AddWithValue("date_performed", datePerformed.HasValue ? (object)datePerformed.Value : DBNull.Value);
                     command.Parameters.AddWithValue("date_scheduled", dateScheduled);
                     command.Parameters.AddWithValue("procedure_type", procedureType);
-                    
+
 
                     if (procedureType == "Surgery")
                     {
@@ -187,19 +208,22 @@ namespace OOP2DatabaseConnectionFinal
                     label7.Text = "Success!";
                     label7.Visible = true;
                 }
+            } catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}",
+                                "Data Entry Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
             }
 
         }
 
         private bool alreadyExists(int procedureId)
         {
-            //create and use an OdbcConnection using the connectionString that we use for mariadb.
             using (var connection = new System.Data.Odbc.OdbcConnection(OOP2DatabaseConnectionFinal.Properties.Settings.Default.ConnectionString))
             {
                 connection.Open();
 
-                // procedure is a reserved keyword, have to escape it! Won't rename the table because the dataSet is already quite
-                // developed.
                 string query = "SELECT COUNT(*) FROM `procedure` WHERE procedure_id = ?";
                 using (var command = new System.Data.Odbc.OdbcCommand(query, connection))
                 {
@@ -217,7 +241,6 @@ namespace OOP2DatabaseConnectionFinal
             int max = 999999999;
             int randomNumber = random.Next(min, max + 1);
 
-            //generate numbers until we don't have a duplicate. in all likelyhood, it will NOT be a duplicate.
             while (alreadyExists(randomNumber))
             {
                 randomNumber = random.Next(min, max + 1);

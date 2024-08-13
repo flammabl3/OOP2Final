@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 namespace OOP2DatabaseConnectionFinal
 {
+    // This is the base class from which each page inherits. It has a method to place itself inside a TabControl.
+    // isLoaded is an attribute which is used to restrict some operations until the page has fully loaded, such as updating controls.
     public partial class BasicControl : UserControl
     {
         public bool isLoaded = false;

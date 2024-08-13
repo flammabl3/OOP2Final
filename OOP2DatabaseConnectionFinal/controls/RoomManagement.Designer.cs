@@ -39,6 +39,10 @@
             this.wardTableAdapter = new OOP2DatabaseConnectionFinal.DataSet2TableAdapters.wardTableAdapter();
             this.roomTableAdapter = new OOP2DatabaseConnectionFinal.DataSet2TableAdapters.roomTableAdapter();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.bed_number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.room_number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ward_letter = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patientnumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.bedBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bedBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.bedBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
@@ -46,10 +50,6 @@
             this.patientTableAdapter = new OOP2DatabaseConnectionFinal.DataSet2TableAdapters.patientTableAdapter();
             this.bedTableAdapter = new OOP2DatabaseConnectionFinal.DataSet2TableAdapters.bedTableAdapter();
             this.label3 = new System.Windows.Forms.Label();
-            this.bed_number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.room_number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ward_letter = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.patientnumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.wardBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.roomBindingSource)).BeginInit();
@@ -129,6 +129,7 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -145,44 +146,9 @@
             this.dataGridView1.RowTemplate.Height = 33;
             this.dataGridView1.Size = new System.Drawing.Size(1082, 369);
             this.dataGridView1.TabIndex = 4;
+            this.dataGridView1.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView1_DataError);
             this.dataGridView1.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView1_DefaultValuesNeeded);
             this.dataGridView1.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_RowValidated);
-            this.dataGridView1.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView1_UserDeletingRow);
-            // 
-            // bedBindingSource
-            // 
-            this.bedBindingSource.DataMember = "bed";
-            this.bedBindingSource.DataSource = this.dataSet2;
-            // 
-            // bedBindingSource1
-            // 
-            this.bedBindingSource1.DataMember = "bed";
-            this.bedBindingSource1.DataSource = this.dataSet2;
-            // 
-            // patientBindingSource
-            // 
-            this.patientBindingSource.DataMember = "patient";
-            this.patientBindingSource.DataSource = this.dataSet2;
-            // 
-            // patientTableAdapter
-            // 
-            this.patientTableAdapter.ClearBeforeFill = true;
-            // 
-            // bedTableAdapter
-            // 
-            this.bedTableAdapter.ClearBeforeFill = true;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(434, 465);
-            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(322, 25);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Error: Patient already has a bed.";
-            this.label3.Visible = false;
             // 
             // bed_number
             // 
@@ -220,6 +186,42 @@
             this.patientnumberDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.patientnumberDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.patientnumberDataGridViewTextBoxColumn.ValueMember = "patient_number";
+            this.patientnumberDataGridViewTextBoxColumn.Width = 200;
+            // 
+            // bedBindingSource
+            // 
+            this.bedBindingSource.DataMember = "bed";
+            this.bedBindingSource.DataSource = this.dataSet2;
+            // 
+            // bedBindingSource1
+            // 
+            this.bedBindingSource1.DataMember = "bed";
+            this.bedBindingSource1.DataSource = this.dataSet2;
+            // 
+            // patientBindingSource
+            // 
+            this.patientBindingSource.DataMember = "patient";
+            this.patientBindingSource.DataSource = this.dataSet2;
+            // 
+            // patientTableAdapter
+            // 
+            this.patientTableAdapter.ClearBeforeFill = true;
+            // 
+            // bedTableAdapter
+            // 
+            this.bedTableAdapter.ClearBeforeFill = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.Red;
+            this.label3.Location = new System.Drawing.Point(434, 465);
+            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(322, 25);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Error: Patient already has a bed.";
+            this.label3.Visible = false;
             // 
             // RoomManagement
             // 

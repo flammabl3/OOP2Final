@@ -36,7 +36,7 @@
             this.operatingstaffidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateperformedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.datescheduledDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.proceduretypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.proceduretypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.roomnumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.wardletterDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.procedureBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -64,6 +64,7 @@
             // dataGridView1
             // 
             this.dataGridView1.AutoGenerateColumns = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.procedureidDataGridViewTextBoxColumn,
@@ -83,21 +84,22 @@
             this.dataGridView1.RowHeadersWidth = 82;
             this.dataGridView1.Size = new System.Drawing.Size(1020, 288);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView1_DataError);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
             // procedureidDataGridViewTextBoxColumn
             // 
             this.procedureidDataGridViewTextBoxColumn.DataPropertyName = "procedure_id";
-            this.procedureidDataGridViewTextBoxColumn.HeaderText = "procedure_id";
+            this.procedureidDataGridViewTextBoxColumn.HeaderText = "Procedure ID";
             this.procedureidDataGridViewTextBoxColumn.MinimumWidth = 10;
             this.procedureidDataGridViewTextBoxColumn.Name = "procedureidDataGridViewTextBoxColumn";
             this.procedureidDataGridViewTextBoxColumn.ReadOnly = true;
-            this.procedureidDataGridViewTextBoxColumn.Width = 200;
+            this.procedureidDataGridViewTextBoxColumn.Width = 168;
             // 
             // procedurenameDataGridViewTextBoxColumn
             // 
             this.procedurenameDataGridViewTextBoxColumn.DataPropertyName = "procedure_name";
-            this.procedurenameDataGridViewTextBoxColumn.HeaderText = "procedure_name";
+            this.procedurenameDataGridViewTextBoxColumn.HeaderText = "Procedure Name";
             this.procedurenameDataGridViewTextBoxColumn.MinimumWidth = 10;
             this.procedurenameDataGridViewTextBoxColumn.Name = "procedurenameDataGridViewTextBoxColumn";
             this.procedurenameDataGridViewTextBoxColumn.ReadOnly = true;
@@ -106,65 +108,67 @@
             // patientnumberDataGridViewTextBoxColumn
             // 
             this.patientnumberDataGridViewTextBoxColumn.DataPropertyName = "patient_number";
-            this.patientnumberDataGridViewTextBoxColumn.HeaderText = "patient_number";
+            this.patientnumberDataGridViewTextBoxColumn.HeaderText = "Patient ID";
             this.patientnumberDataGridViewTextBoxColumn.MinimumWidth = 10;
             this.patientnumberDataGridViewTextBoxColumn.Name = "patientnumberDataGridViewTextBoxColumn";
             this.patientnumberDataGridViewTextBoxColumn.ReadOnly = true;
-            this.patientnumberDataGridViewTextBoxColumn.Width = 200;
+            this.patientnumberDataGridViewTextBoxColumn.Width = 139;
             // 
             // operatingstaffidDataGridViewTextBoxColumn
             // 
             this.operatingstaffidDataGridViewTextBoxColumn.DataPropertyName = "operating_staff_id";
-            this.operatingstaffidDataGridViewTextBoxColumn.HeaderText = "operating_staff_id";
+            this.operatingstaffidDataGridViewTextBoxColumn.HeaderText = "Staff ID";
             this.operatingstaffidDataGridViewTextBoxColumn.MinimumWidth = 10;
             this.operatingstaffidDataGridViewTextBoxColumn.Name = "operatingstaffidDataGridViewTextBoxColumn";
             this.operatingstaffidDataGridViewTextBoxColumn.ReadOnly = true;
-            this.operatingstaffidDataGridViewTextBoxColumn.Width = 200;
+            this.operatingstaffidDataGridViewTextBoxColumn.Width = 118;
             // 
             // dateperformedDataGridViewTextBoxColumn
             // 
             this.dateperformedDataGridViewTextBoxColumn.DataPropertyName = "date_performed";
-            this.dateperformedDataGridViewTextBoxColumn.HeaderText = "date_performed";
+            this.dateperformedDataGridViewTextBoxColumn.HeaderText = "Date Performed";
             this.dateperformedDataGridViewTextBoxColumn.MinimumWidth = 10;
             this.dateperformedDataGridViewTextBoxColumn.Name = "dateperformedDataGridViewTextBoxColumn";
             this.dateperformedDataGridViewTextBoxColumn.ReadOnly = true;
-            this.dateperformedDataGridViewTextBoxColumn.Width = 200;
+            this.dateperformedDataGridViewTextBoxColumn.Width = 190;
             // 
             // datescheduledDataGridViewTextBoxColumn
             // 
             this.datescheduledDataGridViewTextBoxColumn.DataPropertyName = "date_scheduled";
-            this.datescheduledDataGridViewTextBoxColumn.HeaderText = "date_scheduled";
+            this.datescheduledDataGridViewTextBoxColumn.HeaderText = "Date Scheduled";
             this.datescheduledDataGridViewTextBoxColumn.MinimumWidth = 10;
             this.datescheduledDataGridViewTextBoxColumn.Name = "datescheduledDataGridViewTextBoxColumn";
             this.datescheduledDataGridViewTextBoxColumn.ReadOnly = true;
-            this.datescheduledDataGridViewTextBoxColumn.Width = 200;
+            this.datescheduledDataGridViewTextBoxColumn.Width = 193;
             // 
             // proceduretypeDataGridViewTextBoxColumn
             // 
             this.proceduretypeDataGridViewTextBoxColumn.DataPropertyName = "procedure_type";
-            this.proceduretypeDataGridViewTextBoxColumn.HeaderText = "procedure_type";
+            this.proceduretypeDataGridViewTextBoxColumn.HeaderText = "Type";
             this.proceduretypeDataGridViewTextBoxColumn.MinimumWidth = 10;
             this.proceduretypeDataGridViewTextBoxColumn.Name = "proceduretypeDataGridViewTextBoxColumn";
             this.proceduretypeDataGridViewTextBoxColumn.ReadOnly = true;
-            this.proceduretypeDataGridViewTextBoxColumn.Width = 200;
+            this.proceduretypeDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.proceduretypeDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.proceduretypeDataGridViewTextBoxColumn.Width = 105;
             // 
             // roomnumberDataGridViewTextBoxColumn
             // 
             this.roomnumberDataGridViewTextBoxColumn.DataPropertyName = "room_number";
-            this.roomnumberDataGridViewTextBoxColumn.HeaderText = "room_number";
+            this.roomnumberDataGridViewTextBoxColumn.HeaderText = "Room Number";
             this.roomnumberDataGridViewTextBoxColumn.MinimumWidth = 10;
             this.roomnumberDataGridViewTextBoxColumn.Name = "roomnumberDataGridViewTextBoxColumn";
             this.roomnumberDataGridViewTextBoxColumn.ReadOnly = true;
-            this.roomnumberDataGridViewTextBoxColumn.Width = 200;
+            this.roomnumberDataGridViewTextBoxColumn.Width = 179;
             // 
             // wardletterDataGridViewTextBoxColumn
             // 
             this.wardletterDataGridViewTextBoxColumn.DataPropertyName = "ward_letter";
-            this.wardletterDataGridViewTextBoxColumn.HeaderText = "ward_letter";
+            this.wardletterDataGridViewTextBoxColumn.HeaderText = "Ward";
             this.wardletterDataGridViewTextBoxColumn.MinimumWidth = 10;
             this.wardletterDataGridViewTextBoxColumn.Name = "wardletterDataGridViewTextBoxColumn";
             this.wardletterDataGridViewTextBoxColumn.ReadOnly = true;
-            this.wardletterDataGridViewTextBoxColumn.Width = 200;
+            this.wardletterDataGridViewTextBoxColumn.Width = 108;
             // 
             // procedureBindingSource
             // 
@@ -316,15 +320,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn procedureidDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn procedurenameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn patientnumberDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn operatingstaffidDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dateperformedDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn datescheduledDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn proceduretypeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn roomnumberDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn wardletterDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource procedureBindingSource;
         private DataSet2 dataSet2;
         private DataSet2TableAdapters.procedureTableAdapter procedureTableAdapter;
@@ -340,5 +335,14 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn procedureidDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn procedurenameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn patientnumberDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn operatingstaffidDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dateperformedDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn datescheduledDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewComboBoxColumn proceduretypeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn roomnumberDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn wardletterDataGridViewTextBoxColumn;
     }
 }

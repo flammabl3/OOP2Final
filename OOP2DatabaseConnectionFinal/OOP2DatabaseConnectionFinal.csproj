@@ -98,6 +98,7 @@
     <Compile Include="controls\ManagePatientOperations.Designer.cs">
       <DependentUpon>ManagePatientOperations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Classes\OdbcSingleton.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="controls\BasicControl.cs">
