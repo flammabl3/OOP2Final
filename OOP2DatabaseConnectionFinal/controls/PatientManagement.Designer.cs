@@ -40,6 +40,8 @@
             this.middlenameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lastnameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contactnumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.admission_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.discharge_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.patientTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.patientBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
@@ -56,14 +58,16 @@
             this.firstnameDataGridViewTextBoxColumn,
             this.middlenameDataGridViewTextBoxColumn,
             this.lastnameDataGridViewTextBoxColumn,
-            this.contactnumberDataGridViewTextBoxColumn});
+            this.contactnumberDataGridViewTextBoxColumn,
+            this.admission_date,
+            this.discharge_date});
             this.patientTable.DataSource = this.patientBindingSource;
             this.patientTable.Location = new System.Drawing.Point(0, 0);
-            this.patientTable.Margin = new System.Windows.Forms.Padding(2);
+            this.patientTable.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.patientTable.Name = "patientTable";
             this.patientTable.RowHeadersWidth = 82;
             this.patientTable.RowTemplate.Height = 33;
-            this.patientTable.Size = new System.Drawing.Size(576, 272);
+            this.patientTable.Size = new System.Drawing.Size(1152, 523);
             this.patientTable.TabIndex = 0;
             this.patientTable.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView1_DefaultValuesNeeded);
             this.patientTable.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_RowValidated);
@@ -127,14 +131,30 @@
             this.contactnumberDataGridViewTextBoxColumn.MinimumWidth = 10;
             this.contactnumberDataGridViewTextBoxColumn.Name = "contactnumberDataGridViewTextBoxColumn";
             // 
+            // admission_date
+            // 
+            this.admission_date.DataPropertyName = "admission_date";
+            this.admission_date.HeaderText = "admission_date";
+            this.admission_date.MinimumWidth = 10;
+            this.admission_date.Name = "admission_date";
+            this.admission_date.ReadOnly = true;
+            // 
+            // discharge_date
+            // 
+            this.discharge_date.DataPropertyName = "discharge_date";
+            this.discharge_date.HeaderText = "discharge_date";
+            this.discharge_date.MinimumWidth = 10;
+            this.discharge_date.Name = "discharge_date";
+            this.discharge_date.ReadOnly = true;
+            // 
             // PatientManagement
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.patientTable);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "PatientManagement";
-            this.Size = new System.Drawing.Size(576, 274);
+            this.Size = new System.Drawing.Size(1152, 527);
             this.Load += new System.EventHandler(this.PatientManagement_Load);
             ((System.ComponentModel.ISupportInitialize)(this.patientTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.patientBindingSource)).EndInit();
@@ -158,5 +178,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn middlenameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn lastnameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn contactnumberDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn admission_date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn discharge_date;
     }
 }

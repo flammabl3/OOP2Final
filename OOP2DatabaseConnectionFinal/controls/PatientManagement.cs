@@ -1,12 +1,15 @@
-﻿using System;
+﻿using OOP2DatabaseConnectionFinal.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace OOP2DatabaseConnectionFinal
 {
@@ -36,8 +39,33 @@ namespace OOP2DatabaseConnectionFinal
 
             if (row != null && row.Row.RowState == DataRowState.Added)
             {
-                //send the row to mariaDB using the .NET data binding adapter
-                patientTableAdapter.Insert(row.Row.Field<int>("patient_number"), row.Row.Field<string>("first_name"), row.Row.Field<string>("middle_name"), row.Row.Field<string>("last_name"), row.Row.Field<string>("contact_number"));
+
+                using (var connection = new System.Data.Odbc.OdbcConnection(OOP2DatabaseConnectionFinal.Properties.Settings.Default.ConnectionString))
+                {
+                    connection.Open();
+
+                    // procedure is a reserved keyword, have to escape it! Won't rename the table because the dataSet is already quite
+                    // developed.
+                    string query = "INSERT INTO `patient`(`patient_number`, `first_name`, `middle_name`, `last_name`, `contact_number`, `admission_date`, `discharge_date`) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                    using (var command = new System.Data.Odbc.OdbcCommand(query, connection))
+                    {
+
+                        string middleName = row.Row.Field<string>("middle_name");
+                        command.Parameters.AddWithValue("patient_number", row.Row.Field<int>("patient_number"));
+                        command.Parameters.AddWithValue("first_name", row.Row.Field<string>("first_name"));
+                        if (middleName != null)
+                            command.Parameters.AddWithValue("middle_name", middleName);
+                        else
+                            command.Parameters.AddWithValue("middle_name", DBNull.Value);
+                        command.Parameters.AddWithValue("last_name", row.Row.Field<string>("last_name"));
+                        command.Parameters.AddWithValue("contact_number", row.Row.Field<string>("contact_number"));
+                        command.Parameters.AddWithValue("admission_date", DateTime.Now);
+                        command.Parameters.AddWithValue("discharge_date", DBNull.Value);
+                        command.ExecuteNonQuery();
+                        
+                    }
+                }
             }
 
         }
@@ -75,6 +103,8 @@ namespace OOP2DatabaseConnectionFinal
             }
 
             e.Row.Cells[0].Value = randomNumber;
+            e.Row.Cells[5].Value = Convert.ToString(DateTime.Now);
+            e.Row.Cells[6].Value = "";
         }
     }
 }

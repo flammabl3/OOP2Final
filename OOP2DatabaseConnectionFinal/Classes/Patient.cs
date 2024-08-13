@@ -12,6 +12,9 @@ namespace OOP2DatabaseConnectionFinal.Classes
         public string LastName { get; set; }
         public int PatientNumber { get; set; }
         public string DisplayValue { get => (PatientNumber != -1) ? $"{FirstName} {LastName} ({Convert.ToString(PatientNumber)})" : "No Patient"; }
+
+        public DateTime AdmissionDate {get ; set; }
+        public DateTime? DischargeDate { get; set; }
         public Patient() {
             PatientNumber = -1;
         }

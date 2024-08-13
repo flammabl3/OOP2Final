@@ -18,7 +18,6 @@ namespace OOP2DatabaseConnectionFinal
         List<MedicalStaff> staffToBind;
         List<Patient> patientsToBind;
         List<Room> roomsToBind;
-        bool isLoaded = false;
         public ScheduleProcedure()
         {
             staffToBind = new List<MedicalStaff>();

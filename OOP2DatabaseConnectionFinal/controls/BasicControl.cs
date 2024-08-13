@@ -12,6 +12,7 @@ namespace OOP2DatabaseConnectionFinal
 {
     public partial class BasicControl : UserControl
     {
+        public bool isLoaded = false;
         public BasicControl()
         {
             InitializeComponent();

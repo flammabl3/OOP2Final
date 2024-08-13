@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OOP2DatabaseConnectionFinal.controls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -45,6 +46,18 @@ namespace OOP2DatabaseConnectionFinal
                 ScheduleProcedure schedule = new ScheduleProcedure();
 
                 schedule.PlaceInTabControl(tabControl1, scheduleTab);
+            }
+            else if (tabControl1.SelectedTab == PatientOperations)
+            {
+                ManagePatientOperations mpo = new ManagePatientOperations();
+
+                mpo.PlaceInTabControl(tabControl1, PatientOperations);
+            }
+            else if (tabControl1.SelectedTab == ManageStaff)
+            {
+                AddStaff addstaff = new AddStaff();
+
+                addstaff.PlaceInTabControl(tabControl1, ManageStaff);
             }
         }
     }

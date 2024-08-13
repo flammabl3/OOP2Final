@@ -23,7 +23,6 @@ namespace OOP2DatabaseConnectionFinal
         List<Room> roomsToBind;
         List<Patient> patientsToBind;
         List<int> existingPatientNumbers;
-        bool isLoaded;
         public RoomManagement() : base()
         {
             wardsToBind = new List<Ward>();
@@ -156,6 +155,7 @@ namespace OOP2DatabaseConnectionFinal
             e.Row.Cells[2].Value = comboBox1.Text;
         }
 
+        //both update and insert operations occur when a row is done validating, depending on the row state.
         private void dataGridView1_RowValidated(object sender, DataGridViewCellEventArgs e)
         {
             label3.Visible = false;

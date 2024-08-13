@@ -289,6 +289,10 @@ namespace OOP2DatabaseConnectionFinal {
             
             private global::System.Data.DataColumn columncontact_number;
             
+            private global::System.Data.DataColumn columnadmission_date;
+            
+            private global::System.Data.DataColumn columndischarge_date;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public patientDataTable() {
@@ -364,6 +368,22 @@ namespace OOP2DatabaseConnectionFinal {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn admission_dateColumn {
+                get {
+                    return this.columnadmission_date;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn discharge_dateColumn {
+                get {
+                    return this.columndischarge_date;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -399,14 +419,16 @@ namespace OOP2DatabaseConnectionFinal {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public patientRow AddpatientRow(int patient_number, string first_name, string middle_name, string last_name, string contact_number) {
+            public patientRow AddpatientRow(int patient_number, string first_name, string middle_name, string last_name, string contact_number, System.DateTime admission_date, System.DateTime discharge_date) {
                 patientRow rowpatientRow = ((patientRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         patient_number,
                         first_name,
                         middle_name,
                         last_name,
-                        contact_number};
+                        contact_number,
+                        admission_date,
+                        discharge_date};
                 rowpatientRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowpatientRow);
                 return rowpatientRow;
@@ -441,6 +463,8 @@ namespace OOP2DatabaseConnectionFinal {
                 this.columnmiddle_name = base.Columns["middle_name"];
                 this.columnlast_name = base.Columns["last_name"];
                 this.columncontact_number = base.Columns["contact_number"];
+                this.columnadmission_date = base.Columns["admission_date"];
+                this.columndischarge_date = base.Columns["discharge_date"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -456,6 +480,10 @@ namespace OOP2DatabaseConnectionFinal {
                 base.Columns.Add(this.columnlast_name);
                 this.columncontact_number = new global::System.Data.DataColumn("contact_number", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncontact_number);
+                this.columnadmission_date = new global::System.Data.DataColumn("admission_date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnadmission_date);
+                this.columndischarge_date = new global::System.Data.DataColumn("discharge_date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columndischarge_date);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnpatient_number}, true));
                 this.columnpatient_number.AllowDBNull = false;
@@ -467,6 +495,7 @@ namespace OOP2DatabaseConnectionFinal {
                 this.columnlast_name.MaxLength = 400;
                 this.columncontact_number.AllowDBNull = false;
                 this.columncontact_number.MaxLength = 44;
+                this.columnadmission_date.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -669,6 +698,33 @@ namespace OOP2DatabaseConnectionFinal {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public System.DateTime admission_date {
+                get {
+                    return ((global::System.DateTime)(this[this.tablepatient.admission_dateColumn]));
+                }
+                set {
+                    this[this.tablepatient.admission_dateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public System.DateTime discharge_date {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tablepatient.discharge_dateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'discharge_date\' in table \'patient\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablepatient.discharge_dateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool Ismiddle_nameNull() {
                 return this.IsNull(this.tablepatient.middle_nameColumn);
             }
@@ -677,6 +733,18 @@ namespace OOP2DatabaseConnectionFinal {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void Setmiddle_nameNull() {
                 this[this.tablepatient.middle_nameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Isdischarge_dateNull() {
+                return this.IsNull(this.tablepatient.discharge_dateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Setdischarge_dateNull() {
+                this[this.tablepatient.discharge_dateColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -844,12 +912,12 @@ namespace OOP2DatabaseConnectionFinal.DataSet1TableAdapters {
             tableMapping.ColumnMappings.Add("middle_name", "middle_name");
             tableMapping.ColumnMappings.Add("last_name", "last_name");
             tableMapping.ColumnMappings.Add("contact_number", "contact_number");
+            tableMapping.ColumnMappings.Add("admission_date", "admission_date");
+            tableMapping.ColumnMappings.Add("discharge_date", "discharge_date");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.Odbc.OdbcCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM `patient` WHERE ((`patient_number` = ?) AND (`first_name` = ?) AND ((" +
-                "? = 1 AND `middle_name` IS NULL) OR (`middle_name` = ?)) AND (`last_name` = ?) A" +
-                "ND (`contact_number` = ?))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `patient` WHERE ((`patient_number` = ?) AND (`first_name` = ?) AND ((? = 1 AND `middle_name` IS NULL) OR (`middle_name` = ?)) AND (`last_name` = ?) AND (`contact_number` = ?) AND (`admission_date` = ?) AND ((? = 1 AND `discharge_date` IS NULL) OR (`discharge_date` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("Original_patient_number", global::System.Data.Odbc.OdbcType.Int, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "patient_number", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("Original_first_name", global::System.Data.Odbc.OdbcType.VarChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "first_name", global::System.Data.DataRowVersion.Original, false, null));
@@ -857,31 +925,42 @@ namespace OOP2DatabaseConnectionFinal.DataSet1TableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("Original_middle_name", global::System.Data.Odbc.OdbcType.VarChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "middle_name", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("Original_last_name", global::System.Data.Odbc.OdbcType.VarChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "last_name", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("Original_contact_number", global::System.Data.Odbc.OdbcType.VarChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "contact_number", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("Original_admission_date", global::System.Data.Odbc.OdbcType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "admission_date", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("IsNull_discharge_date", global::System.Data.Odbc.OdbcType.Int, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "discharge_date", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("Original_discharge_date", global::System.Data.Odbc.OdbcType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "discharge_date", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.Odbc.OdbcCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO `patient` (`patient_number`, `first_name`, `middle_name`, `last_name`" +
-                ", `contact_number`) VALUES (?, ?, ?, ?, ?)";
+                ", `contact_number`, `admission_date`, `discharge_date`) VALUES (?, ?, ?, ?, ?, ?" +
+                ", ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("patient_number", global::System.Data.Odbc.OdbcType.Int, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "patient_number", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("first_name", global::System.Data.Odbc.OdbcType.VarChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "first_name", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("middle_name", global::System.Data.Odbc.OdbcType.VarChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "middle_name", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("last_name", global::System.Data.Odbc.OdbcType.VarChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "last_name", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("contact_number", global::System.Data.Odbc.OdbcType.VarChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "contact_number", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("admission_date", global::System.Data.Odbc.OdbcType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "admission_date", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("discharge_date", global::System.Data.Odbc.OdbcType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "discharge_date", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.Odbc.OdbcCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `patient` SET `patient_number` = ?, `first_name` = ?, `middle_name` = ?, `last_name` = ?, `contact_number` = ? WHERE ((`patient_number` = ?) AND (`first_name` = ?) AND ((? = 1 AND `middle_name` IS NULL) OR (`middle_name` = ?)) AND (`last_name` = ?) AND (`contact_number` = ?))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `patient` SET `patient_number` = ?, `first_name` = ?, `middle_name` = ?, `last_name` = ?, `contact_number` = ?, `admission_date` = ?, `discharge_date` = ? WHERE ((`patient_number` = ?) AND (`first_name` = ?) AND ((? = 1 AND `middle_name` IS NULL) OR (`middle_name` = ?)) AND (`last_name` = ?) AND (`contact_number` = ?) AND (`admission_date` = ?) AND ((? = 1 AND `discharge_date` IS NULL) OR (`discharge_date` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("patient_number", global::System.Data.Odbc.OdbcType.Int, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "patient_number", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("first_name", global::System.Data.Odbc.OdbcType.VarChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "first_name", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("middle_name", global::System.Data.Odbc.OdbcType.VarChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "middle_name", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("last_name", global::System.Data.Odbc.OdbcType.VarChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "last_name", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("contact_number", global::System.Data.Odbc.OdbcType.VarChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "contact_number", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("admission_date", global::System.Data.Odbc.OdbcType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "admission_date", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("discharge_date", global::System.Data.Odbc.OdbcType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "discharge_date", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("Original_patient_number", global::System.Data.Odbc.OdbcType.Int, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "patient_number", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("Original_first_name", global::System.Data.Odbc.OdbcType.VarChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "first_name", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("IsNull_middle_name", global::System.Data.Odbc.OdbcType.Int, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "middle_name", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("Original_middle_name", global::System.Data.Odbc.OdbcType.VarChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "middle_name", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("Original_last_name", global::System.Data.Odbc.OdbcType.VarChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "last_name", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("Original_contact_number", global::System.Data.Odbc.OdbcType.VarChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "contact_number", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("Original_admission_date", global::System.Data.Odbc.OdbcType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "admission_date", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("IsNull_discharge_date", global::System.Data.Odbc.OdbcType.Int, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "discharge_date", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.Odbc.OdbcParameter("Original_discharge_date", global::System.Data.Odbc.OdbcType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "discharge_date", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -898,7 +977,7 @@ namespace OOP2DatabaseConnectionFinal.DataSet1TableAdapters {
             this._commandCollection[0] = new global::System.Data.Odbc.OdbcCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT `patient_number`, `first_name`, `middle_name`, `last_name`, `contact_numbe" +
-                "r` FROM `patient`";
+                "r`, `admission_date`, `discharge_date` FROM `patient`";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -959,7 +1038,7 @@ namespace OOP2DatabaseConnectionFinal.DataSet1TableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_patient_number, string Original_first_name, string Original_middle_name, string Original_last_name, string Original_contact_number) {
+        public virtual int Delete(int Original_patient_number, string Original_first_name, string Original_middle_name, string Original_last_name, string Original_contact_number, System.DateTime Original_admission_date, System.DateTime Original_discharge_date) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_patient_number));
             if ((Original_first_name == null)) {
                 throw new global::System.ArgumentNullException("Original_first_name");
@@ -986,6 +1065,9 @@ namespace OOP2DatabaseConnectionFinal.DataSet1TableAdapters {
             else {
                 this.Adapter.DeleteCommand.Parameters[5].Value = ((string)(Original_contact_number));
             }
+            this.Adapter.DeleteCommand.Parameters[6].Value = ((System.DateTime)(Original_admission_date));
+            this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
+            this.Adapter.DeleteCommand.Parameters[8].Value = ((System.DateTime)(Original_discharge_date));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -1006,7 +1088,7 @@ namespace OOP2DatabaseConnectionFinal.DataSet1TableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int patient_number, string first_name, string middle_name, string last_name, string contact_number) {
+        public virtual int Insert(int patient_number, string first_name, string middle_name, string last_name, string contact_number, System.DateTime admission_date, System.DateTime discharge_date) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(patient_number));
             if ((first_name == null)) {
                 throw new global::System.ArgumentNullException("first_name");
@@ -1032,6 +1114,8 @@ namespace OOP2DatabaseConnectionFinal.DataSet1TableAdapters {
             else {
                 this.Adapter.InsertCommand.Parameters[4].Value = ((string)(contact_number));
             }
+            this.Adapter.InsertCommand.Parameters[5].Value = ((System.DateTime)(admission_date));
+            this.Adapter.InsertCommand.Parameters[6].Value = ((System.DateTime)(discharge_date));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -1052,7 +1136,7 @@ namespace OOP2DatabaseConnectionFinal.DataSet1TableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int patient_number, string first_name, string middle_name, string last_name, string contact_number, int Original_patient_number, string Original_first_name, string Original_middle_name, string Original_last_name, string Original_contact_number) {
+        public virtual int Update(int patient_number, string first_name, string middle_name, string last_name, string contact_number, System.DateTime admission_date, System.DateTime discharge_date, int Original_patient_number, string Original_first_name, string Original_middle_name, string Original_last_name, string Original_contact_number, System.DateTime Original_admission_date, System.DateTime Original_discharge_date) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(patient_number));
             if ((first_name == null)) {
                 throw new global::System.ArgumentNullException("first_name");
@@ -1078,32 +1162,37 @@ namespace OOP2DatabaseConnectionFinal.DataSet1TableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(contact_number));
             }
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_patient_number));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((System.DateTime)(admission_date));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((System.DateTime)(discharge_date));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_patient_number));
             if ((Original_first_name == null)) {
                 throw new global::System.ArgumentNullException("Original_first_name");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(Original_first_name));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(Original_first_name));
             }
             if ((Original_middle_name == null)) {
                 throw new global::System.ArgumentNullException("Original_middle_name");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(Original_middle_name));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(Original_middle_name));
             }
             if ((Original_last_name == null)) {
                 throw new global::System.ArgumentNullException("Original_last_name");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(Original_last_name));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((string)(Original_last_name));
             }
             if ((Original_contact_number == null)) {
                 throw new global::System.ArgumentNullException("Original_contact_number");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(Original_contact_number));
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Original_contact_number));
             }
+            this.Adapter.UpdateCommand.Parameters[13].Value = ((System.DateTime)(Original_admission_date));
+            this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[15].Value = ((System.DateTime)(Original_discharge_date));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -1124,8 +1213,8 @@ namespace OOP2DatabaseConnectionFinal.DataSet1TableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string first_name, string middle_name, string last_name, string contact_number, int Original_patient_number, string Original_first_name, string Original_middle_name, string Original_last_name, string Original_contact_number) {
-            return this.Update(Original_patient_number, first_name, middle_name, last_name, contact_number, Original_patient_number, Original_first_name, Original_middle_name, Original_last_name, Original_contact_number);
+        public virtual int Update(string first_name, string middle_name, string last_name, string contact_number, System.DateTime admission_date, System.DateTime discharge_date, int Original_patient_number, string Original_first_name, string Original_middle_name, string Original_last_name, string Original_contact_number, System.DateTime Original_admission_date, System.DateTime Original_discharge_date) {
+            return this.Update(Original_patient_number, first_name, middle_name, last_name, contact_number, admission_date, discharge_date, Original_patient_number, Original_first_name, Original_middle_name, Original_last_name, Original_contact_number, Original_admission_date, Original_discharge_date);
         }
     }
     
