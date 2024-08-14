@@ -1,5 +1,6 @@
 ﻿using OOP2DatabaseConnectionFinal.Classes;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -88,7 +89,8 @@ namespace OOP2DatabaseConnectionFinal
             else
             {
                 dateTimePicker2.Enabled = false;
-                dateTimePicker2.Value = DateTime.Now;
+
+                dateTimePicker2.Value = dateTimePicker2.MaxDate;
                 dateTimePicker2.Visible = false;
             }
 
@@ -104,6 +106,14 @@ namespace OOP2DatabaseConnectionFinal
             dateTimePicker2.Enabled = true;
 
             updateDate("UPDATE patient SET `discharge_date`=? WHERE patient_number = ?", dateTimePicker2.Value);
+            var connection = OdbcSingleton.Instance;
+            string query = "UPDATE `bed` SET `patient_number` = NULL WHERE `patient_number` = ?";
+
+            using (var command = new System.Data.Odbc.OdbcCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("patient_number", comboBox1.SelectedValue);
+                command.ExecuteNonQuery();
+            }
         }
 
         private void updateDate(string query, DateTime time)
@@ -191,7 +201,7 @@ namespace OOP2DatabaseConnectionFinal
 
                     command.ExecuteNonQuery();
                 }
-               
+
             } else
             {
                 

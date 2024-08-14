@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOP2DatabaseConnectionFinal.Classes
 {
-    internal class Room
+    abstract class Room
     {
         public int RoomNumber { get; set; }
         public char WardLetter { get; set; }

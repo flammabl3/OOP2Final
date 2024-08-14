@@ -39,10 +39,6 @@
             this.wardTableAdapter = new OOP2DatabaseConnectionFinal.DataSet2TableAdapters.wardTableAdapter();
             this.roomTableAdapter = new OOP2DatabaseConnectionFinal.DataSet2TableAdapters.roomTableAdapter();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.bed_number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.room_number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ward_letter = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.patientnumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.bedBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bedBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.bedBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
@@ -50,6 +46,10 @@
             this.patientTableAdapter = new OOP2DatabaseConnectionFinal.DataSet2TableAdapters.patientTableAdapter();
             this.bedTableAdapter = new OOP2DatabaseConnectionFinal.DataSet2TableAdapters.bedTableAdapter();
             this.label3 = new System.Windows.Forms.Label();
+            this.bed_number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.room_number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ward_letter = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patientnumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.wardBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.roomBindingSource)).BeginInit();
@@ -150,44 +150,6 @@
             this.dataGridView1.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView1_DefaultValuesNeeded);
             this.dataGridView1.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_RowValidated);
             // 
-            // bed_number
-            // 
-            this.bed_number.DataPropertyName = "bed_number";
-            this.bed_number.HeaderText = "bed_number";
-            this.bed_number.MinimumWidth = 10;
-            this.bed_number.Name = "bed_number";
-            this.bed_number.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.bed_number.Width = 80;
-            // 
-            // room_number
-            // 
-            this.room_number.DataPropertyName = "room_number";
-            this.room_number.HeaderText = "room_number";
-            this.room_number.MinimumWidth = 10;
-            this.room_number.Name = "room_number";
-            this.room_number.Width = 80;
-            // 
-            // ward_letter
-            // 
-            this.ward_letter.DataPropertyName = "ward_letter";
-            this.ward_letter.HeaderText = "ward_letter";
-            this.ward_letter.MinimumWidth = 10;
-            this.ward_letter.Name = "ward_letter";
-            this.ward_letter.Width = 80;
-            // 
-            // patientnumberDataGridViewTextBoxColumn
-            // 
-            this.patientnumberDataGridViewTextBoxColumn.DataPropertyName = "patient_number";
-            this.patientnumberDataGridViewTextBoxColumn.DataSource = this.bedBindingSource;
-            this.patientnumberDataGridViewTextBoxColumn.DisplayMember = "patient_number";
-            this.patientnumberDataGridViewTextBoxColumn.HeaderText = "patient_number";
-            this.patientnumberDataGridViewTextBoxColumn.MinimumWidth = 10;
-            this.patientnumberDataGridViewTextBoxColumn.Name = "patientnumberDataGridViewTextBoxColumn";
-            this.patientnumberDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.patientnumberDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.patientnumberDataGridViewTextBoxColumn.ValueMember = "patient_number";
-            this.patientnumberDataGridViewTextBoxColumn.Width = 200;
-            // 
             // bedBindingSource
             // 
             this.bedBindingSource.DataMember = "bed";
@@ -222,6 +184,44 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Error: Patient already has a bed.";
             this.label3.Visible = false;
+            // 
+            // bed_number
+            // 
+            this.bed_number.DataPropertyName = "bed_number";
+            this.bed_number.HeaderText = "Bed Number";
+            this.bed_number.MinimumWidth = 10;
+            this.bed_number.Name = "bed_number";
+            this.bed_number.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.bed_number.Width = 80;
+            // 
+            // room_number
+            // 
+            this.room_number.DataPropertyName = "room_number";
+            this.room_number.HeaderText = "Room Number";
+            this.room_number.MinimumWidth = 10;
+            this.room_number.Name = "room_number";
+            this.room_number.Width = 80;
+            // 
+            // ward_letter
+            // 
+            this.ward_letter.DataPropertyName = "ward_letter";
+            this.ward_letter.HeaderText = "Ward";
+            this.ward_letter.MinimumWidth = 10;
+            this.ward_letter.Name = "ward_letter";
+            this.ward_letter.Width = 80;
+            // 
+            // patientnumberDataGridViewTextBoxColumn
+            // 
+            this.patientnumberDataGridViewTextBoxColumn.DataPropertyName = "patient_number";
+            this.patientnumberDataGridViewTextBoxColumn.DataSource = this.bedBindingSource;
+            this.patientnumberDataGridViewTextBoxColumn.DisplayMember = "patient_number";
+            this.patientnumberDataGridViewTextBoxColumn.HeaderText = "Patient ID";
+            this.patientnumberDataGridViewTextBoxColumn.MinimumWidth = 10;
+            this.patientnumberDataGridViewTextBoxColumn.Name = "patientnumberDataGridViewTextBoxColumn";
+            this.patientnumberDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.patientnumberDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.patientnumberDataGridViewTextBoxColumn.ValueMember = "patient_number";
+            this.patientnumberDataGridViewTextBoxColumn.Width = 200;
             // 
             // RoomManagement
             // 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOP2DatabaseConnectionFinal.Classes
 {
-    internal class MedicalStaff
+    abstract class MedicalStaff
     {
         public int StaffID { get; set; }
         public string FirstName { get; set; }

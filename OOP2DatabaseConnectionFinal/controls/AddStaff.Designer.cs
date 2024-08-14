@@ -30,15 +30,15 @@
         {
             this.components = new System.ComponentModel.Container();
             this.staffTable = new System.Windows.Forms.DataGridView();
+            this.medicalstaffBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataSet2 = new OOP2DatabaseConnectionFinal.DataSet2();
+            this.medical_staffTableAdapter = new OOP2DatabaseConnectionFinal.DataSet2TableAdapters.medical_staffTableAdapter();
             this.staffidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.firstnameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lastnameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.contactnumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contactemailDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.medicalstaffBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataSet2 = new OOP2DatabaseConnectionFinal.DataSet2();
-            this.medical_staffTableAdapter = new OOP2DatabaseConnectionFinal.DataSet2TableAdapters.medical_staffTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.staffTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.medicalstaffBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet2)).BeginInit();
@@ -70,56 +70,6 @@
             this.staffTable.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.staffTable_RowValidated);
             this.staffTable.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.staffTable_UserDeletingRow);
             // 
-            // staffidDataGridViewTextBoxColumn
-            // 
-            this.staffidDataGridViewTextBoxColumn.DataPropertyName = "staff_id";
-            this.staffidDataGridViewTextBoxColumn.HeaderText = "Staff ID";
-            this.staffidDataGridViewTextBoxColumn.MinimumWidth = 10;
-            this.staffidDataGridViewTextBoxColumn.Name = "staffidDataGridViewTextBoxColumn";
-            this.staffidDataGridViewTextBoxColumn.Width = 200;
-            // 
-            // firstnameDataGridViewTextBoxColumn
-            // 
-            this.firstnameDataGridViewTextBoxColumn.DataPropertyName = "first_name";
-            this.firstnameDataGridViewTextBoxColumn.HeaderText = "First Name";
-            this.firstnameDataGridViewTextBoxColumn.MinimumWidth = 10;
-            this.firstnameDataGridViewTextBoxColumn.Name = "firstnameDataGridViewTextBoxColumn";
-            this.firstnameDataGridViewTextBoxColumn.Width = 200;
-            // 
-            // lastnameDataGridViewTextBoxColumn
-            // 
-            this.lastnameDataGridViewTextBoxColumn.DataPropertyName = "last_name";
-            this.lastnameDataGridViewTextBoxColumn.HeaderText = "Last Name";
-            this.lastnameDataGridViewTextBoxColumn.MinimumWidth = 10;
-            this.lastnameDataGridViewTextBoxColumn.Name = "lastnameDataGridViewTextBoxColumn";
-            this.lastnameDataGridViewTextBoxColumn.Width = 200;
-            // 
-            // titleDataGridViewTextBoxColumn
-            // 
-            this.titleDataGridViewTextBoxColumn.DataPropertyName = "title";
-            this.titleDataGridViewTextBoxColumn.HeaderText = "Staff Title";
-            this.titleDataGridViewTextBoxColumn.MinimumWidth = 10;
-            this.titleDataGridViewTextBoxColumn.Name = "titleDataGridViewTextBoxColumn";
-            this.titleDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.titleDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.titleDataGridViewTextBoxColumn.Width = 200;
-            // 
-            // contactnumberDataGridViewTextBoxColumn
-            // 
-            this.contactnumberDataGridViewTextBoxColumn.DataPropertyName = "contact_number";
-            this.contactnumberDataGridViewTextBoxColumn.HeaderText = "Phone No.";
-            this.contactnumberDataGridViewTextBoxColumn.MinimumWidth = 10;
-            this.contactnumberDataGridViewTextBoxColumn.Name = "contactnumberDataGridViewTextBoxColumn";
-            this.contactnumberDataGridViewTextBoxColumn.Width = 200;
-            // 
-            // contactemailDataGridViewTextBoxColumn
-            // 
-            this.contactemailDataGridViewTextBoxColumn.DataPropertyName = "contact_email";
-            this.contactemailDataGridViewTextBoxColumn.HeaderText = "E-mail";
-            this.contactemailDataGridViewTextBoxColumn.MinimumWidth = 10;
-            this.contactemailDataGridViewTextBoxColumn.Name = "contactemailDataGridViewTextBoxColumn";
-            this.contactemailDataGridViewTextBoxColumn.Width = 200;
-            // 
             // medicalstaffBindingSource
             // 
             this.medicalstaffBindingSource.DataMember = "medical_staff";
@@ -133,6 +83,56 @@
             // medical_staffTableAdapter
             // 
             this.medical_staffTableAdapter.ClearBeforeFill = true;
+            // 
+            // staffidDataGridViewTextBoxColumn
+            // 
+            this.staffidDataGridViewTextBoxColumn.DataPropertyName = "staff_id";
+            this.staffidDataGridViewTextBoxColumn.HeaderText = "Staff ID";
+            this.staffidDataGridViewTextBoxColumn.MinimumWidth = 10;
+            this.staffidDataGridViewTextBoxColumn.Name = "staffidDataGridViewTextBoxColumn";
+            this.staffidDataGridViewTextBoxColumn.Width = 70;
+            // 
+            // firstnameDataGridViewTextBoxColumn
+            // 
+            this.firstnameDataGridViewTextBoxColumn.DataPropertyName = "first_name";
+            this.firstnameDataGridViewTextBoxColumn.HeaderText = "First Name";
+            this.firstnameDataGridViewTextBoxColumn.MinimumWidth = 10;
+            this.firstnameDataGridViewTextBoxColumn.Name = "firstnameDataGridViewTextBoxColumn";
+            this.firstnameDataGridViewTextBoxColumn.Width = 80;
+            // 
+            // lastnameDataGridViewTextBoxColumn
+            // 
+            this.lastnameDataGridViewTextBoxColumn.DataPropertyName = "last_name";
+            this.lastnameDataGridViewTextBoxColumn.HeaderText = "Last Name";
+            this.lastnameDataGridViewTextBoxColumn.MinimumWidth = 10;
+            this.lastnameDataGridViewTextBoxColumn.Name = "lastnameDataGridViewTextBoxColumn";
+            this.lastnameDataGridViewTextBoxColumn.Width = 80;
+            // 
+            // titleDataGridViewTextBoxColumn
+            // 
+            this.titleDataGridViewTextBoxColumn.DataPropertyName = "title";
+            this.titleDataGridViewTextBoxColumn.HeaderText = "Staff Title";
+            this.titleDataGridViewTextBoxColumn.MinimumWidth = 10;
+            this.titleDataGridViewTextBoxColumn.Name = "titleDataGridViewTextBoxColumn";
+            this.titleDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.titleDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.titleDataGridViewTextBoxColumn.Width = 80;
+            // 
+            // contactnumberDataGridViewTextBoxColumn
+            // 
+            this.contactnumberDataGridViewTextBoxColumn.DataPropertyName = "contact_number";
+            this.contactnumberDataGridViewTextBoxColumn.HeaderText = "Phone No.";
+            this.contactnumberDataGridViewTextBoxColumn.MinimumWidth = 10;
+            this.contactnumberDataGridViewTextBoxColumn.Name = "contactnumberDataGridViewTextBoxColumn";
+            this.contactnumberDataGridViewTextBoxColumn.Width = 80;
+            // 
+            // contactemailDataGridViewTextBoxColumn
+            // 
+            this.contactemailDataGridViewTextBoxColumn.DataPropertyName = "contact_email";
+            this.contactemailDataGridViewTextBoxColumn.HeaderText = "E-mail";
+            this.contactemailDataGridViewTextBoxColumn.MinimumWidth = 10;
+            this.contactemailDataGridViewTextBoxColumn.Name = "contactemailDataGridViewTextBoxColumn";
+            this.contactemailDataGridViewTextBoxColumn.Width = 117;
             // 
             // AddStaff
             // 
