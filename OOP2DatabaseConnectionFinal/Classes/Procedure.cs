@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOP2DatabaseConnectionFinal.Classes
 {
-    internal class Procedure
+    abstract class Procedure
     {
         public int ProcedureID { get; set; }
         public string procedureName { get; set; }

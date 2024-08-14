@@ -129,6 +129,7 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -145,9 +146,9 @@
             this.dataGridView1.RowTemplate.Height = 33;
             this.dataGridView1.Size = new System.Drawing.Size(1082, 369);
             this.dataGridView1.TabIndex = 4;
+            this.dataGridView1.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView1_DataError);
             this.dataGridView1.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView1_DefaultValuesNeeded);
             this.dataGridView1.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_RowValidated);
-            this.dataGridView1.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView1_UserDeletingRow);
             // 
             // bedBindingSource
             // 
@@ -187,7 +188,7 @@
             // bed_number
             // 
             this.bed_number.DataPropertyName = "bed_number";
-            this.bed_number.HeaderText = "bed_number";
+            this.bed_number.HeaderText = "Bed Number";
             this.bed_number.MinimumWidth = 10;
             this.bed_number.Name = "bed_number";
             this.bed_number.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -196,7 +197,7 @@
             // room_number
             // 
             this.room_number.DataPropertyName = "room_number";
-            this.room_number.HeaderText = "room_number";
+            this.room_number.HeaderText = "Room Number";
             this.room_number.MinimumWidth = 10;
             this.room_number.Name = "room_number";
             this.room_number.Width = 80;
@@ -204,7 +205,7 @@
             // ward_letter
             // 
             this.ward_letter.DataPropertyName = "ward_letter";
-            this.ward_letter.HeaderText = "ward_letter";
+            this.ward_letter.HeaderText = "Ward";
             this.ward_letter.MinimumWidth = 10;
             this.ward_letter.Name = "ward_letter";
             this.ward_letter.Width = 80;
@@ -214,12 +215,13 @@
             this.patientnumberDataGridViewTextBoxColumn.DataPropertyName = "patient_number";
             this.patientnumberDataGridViewTextBoxColumn.DataSource = this.bedBindingSource;
             this.patientnumberDataGridViewTextBoxColumn.DisplayMember = "patient_number";
-            this.patientnumberDataGridViewTextBoxColumn.HeaderText = "patient_number";
+            this.patientnumberDataGridViewTextBoxColumn.HeaderText = "Patient ID";
             this.patientnumberDataGridViewTextBoxColumn.MinimumWidth = 10;
             this.patientnumberDataGridViewTextBoxColumn.Name = "patientnumberDataGridViewTextBoxColumn";
             this.patientnumberDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.patientnumberDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.patientnumberDataGridViewTextBoxColumn.ValueMember = "patient_number";
+            this.patientnumberDataGridViewTextBoxColumn.Width = 200;
             // 
             // RoomManagement
             // 
