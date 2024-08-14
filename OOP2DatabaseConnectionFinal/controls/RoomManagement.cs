@@ -263,7 +263,7 @@ namespace OOP2DatabaseConnectionFinal
         private void UpdatePatientNumberOptions()
         {
 
-            patientTableAdapter.Fill(dataSet2.patient);
+            patientTableAdapter.FillBy(dataSet2.patient);
 
             //blank item to facilitate adding a bed with no patient
             patientsToBind.Add(new Patient());

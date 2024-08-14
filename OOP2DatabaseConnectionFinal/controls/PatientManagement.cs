@@ -46,78 +46,89 @@ namespace OOP2DatabaseConnectionFinal
         //A row is validated when a new row is added and the user clicks off.
         private void dataGridView1_RowValidated(object sender, DataGridViewCellEventArgs e)
         {
+             
             //Checks if the row is an empty row. Don't add this row.
-            if (patientTable.Rows[e.RowIndex].IsNewRow)
+            if (patientTable.Rows[e.RowIndex].IsNewRow || patientTable.Rows[e.RowIndex].Cells[0].Value == null)
                 return;
 
             //cast the data at the index of the row added and captured by the event handler. Cast it to a DataRowView.
             var row = (DataRowView)patientTable.Rows[e.RowIndex].DataBoundItem;
 
-            
-            if (row != null)
+            try
             {
-
-                var connection = OdbcSingleton.Instance;
-
-                string query = "";
-
-                //if the row was added by the user, use an insert. If it was an existing row that was modified, update.
-                if (row.Row.RowState == DataRowState.Added) {
-                    query = "INSERT INTO `patient`(`patient_number`, `first_name`, `middle_name`, `last_name`, `contact_number`, `admission_date`, `discharge_date`) " +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?)";
-                } else if (row.Row.RowState == DataRowState.Modified) {
-                    query = "UPDATE `patient` SET `patient_number`=?,`first_name`=?,`middle_name`=?,`last_name`=?,`contact_number`=?,`admission_date`=?,`discharge_date`=? WHERE `patient_number` = ?";
-                } else
+                if (row != null)
                 {
-                    return;
-                }
-                
-                using (var command = new System.Data.Odbc.OdbcCommand(query, connection))
-                {
-                    //OdbcAdapter and OdbcConnection use a type called DBNull instead of null.
-                    // Names are not validated too much, since someone should not be denied from the hospital on the basis of a weird name.
 
-                    string phoneNumber = row.Row.Field<string>("contact_number");
+                    var connection = OdbcSingleton.Instance;
 
-                    //if any characters other than plus, digits, brackets, hyphens, or whitespapce are in the phone number, throw exception.
-                    if (Regex.IsMatch(phoneNumber, @"[^0-9\-\(\)\+ ]"))
+                    string query = "";
+
+                    //if the row was added by the user, use an insert. If it was an existing row that was modified, update.
+                    if (row.Row.RowState == DataRowState.Added) {
+                        query = "INSERT INTO `patient`(`patient_number`, `first_name`, `middle_name`, `last_name`, `contact_number`, `admission_date`, `discharge_date`) " +
+                                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                    } else if (row.Row.RowState == DataRowState.Modified) {
+                        query = "UPDATE `patient` SET `patient_number`=?,`first_name`=?,`middle_name`=?,`last_name`=?,`contact_number`=?,`admission_date`=?,`discharge_date`=? WHERE `patient_number` = ?";
+                    } else
                     {
-                        throw new Exception("Invalid characters in phone number!");
+                        return;
+                    }
+
+                    using (var command = new System.Data.Odbc.OdbcCommand(query, connection))
+                    {
+                        //OdbcAdapter and OdbcConnection use a type called DBNull instead of null.
+                        // Names are not validated too much, since someone should not be denied from the hospital on the basis of a weird name.
+
+                        string phoneNumber = row.Row.Field<string>("contact_number");
+
+                        //if any characters other than plus, digits, brackets, hyphens, or whitespapce are in the phone number, throw exception.
+                        if (Regex.IsMatch(phoneNumber, @"[^0-9\-\(\)\+ ]"))
+                        {
+                            throw new Exception("Invalid characters in phone number!");
+                        }
+
+
+                        //replace non numeric, leave plus for phone extensions
+                        phoneNumber = Regex.Replace(phoneNumber, @"[^0-9\+]", "");
+
+                        // A phone number, with nothing but a plus, a country code, and an 11 digit number, cannot be more than 16 characters.
+                        if (phoneNumber.Length > 16)
+                        {
+                            throw new Exception("Phone number exceeds max length!");
+                        }
+
+                        string middleName = row.Row.Field<string>("middle_name");
+                        command.Parameters.AddWithValue("patient_number", row.Row.Field<int>("patient_number"));
+                        command.Parameters.AddWithValue("first_name", row.Row.Field<string>("first_name"));
+                        if (middleName != null)
+                            command.Parameters.AddWithValue("middle_name", middleName);
+                        else
+                            command.Parameters.AddWithValue("middle_name", DBNull.Value);
+                        command.Parameters.AddWithValue("last_name", row.Row.Field<string>("last_name"));
+                        command.Parameters.AddWithValue("contact_number", phoneNumber);
+                        command.Parameters.AddWithValue("admission_date", DateTime.Now);
+                        command.Parameters.AddWithValue("discharge_date", DBNull.Value);
+                        command.Parameters.AddWithValue("patient_number_ck", row.Row.Field<int>("patient_number"));
+                        command.ExecuteNonQuery();
+
                     }
 
 
-                    //replace non numeric, leave plus for phone extensions
-                    phoneNumber = Regex.Replace(phoneNumber, @"[^0-9\+]", "");
-
-                    // A phone number, with nothing but a plus, a country code, and an 11 digit number, cannot be more than 16 characters.
-                    if (phoneNumber.Length > 16)
-                    {
-                        throw new Exception("Phone number exceeds max length!");
-                    }
-
-                    string middleName = row.Row.Field<string>("middle_name");
-                    command.Parameters.AddWithValue("patient_number", row.Row.Field<int>("patient_number"));
-                    command.Parameters.AddWithValue("first_name", row.Row.Field<string>("first_name"));
-                    if (middleName != null)
-                        command.Parameters.AddWithValue("middle_name", middleName);
-                    else
-                        command.Parameters.AddWithValue("middle_name", DBNull.Value);
-                    command.Parameters.AddWithValue("last_name", row.Row.Field<string>("last_name"));
-                    command.Parameters.AddWithValue("contact_number", phoneNumber);
-                    command.Parameters.AddWithValue("admission_date", DateTime.Now);
-                    command.Parameters.AddWithValue("discharge_date", DBNull.Value);
-                    command.Parameters.AddWithValue("patient_number_ck", row.Row.Field<int>("patient_number"));
-                    command.ExecuteNonQuery();
-                        
                 }
 
-                
+                //accept changes to set the RowState to Unchanged, allowing further modifications to work properly.
+                row.EndEdit();
+                row.Row.AcceptChanges();
+            } catch (Exception ex) {
+                row.Row.Delete();
+                string errorHeader = patientTable.Columns[e.ColumnIndex].HeaderText;
+
+                MessageBox.Show($"Error in {errorHeader}, Row Number {e.RowIndex + 1}: {ex.Message}",
+                                "Data Entry Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+
             }
-
-            //accept changes to set the RowState to Unchanged, allowing further modifications to work properly.
-            row.EndEdit();
-            row.Row.AcceptChanges();
-
         }
 
         //query and see if a patient already exists.
@@ -163,6 +174,8 @@ namespace OOP2DatabaseConnectionFinal
                             "Data Entry Error",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
+
+
         }
 
         // if a patient was deleted, simply discharge them.

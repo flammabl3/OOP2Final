@@ -982,8 +982,8 @@ namespace OOP2DatabaseConnectionFinal.DataSet1TableAdapters {
             this._commandCollection[1] = new global::System.Data.Odbc.OdbcCommand();
             this._commandCollection[1].Connection = this.Connection;
             this._commandCollection[1].CommandText = "SELECT `patient_number`, `first_name`, `middle_name`, `last_name`, `contact_numbe" +
-                "r`, `admission_date`, `discharge_date` FROM `patient`\r\nWHERE `discharge_date` IS" +
-                " NULL";
+                "r`, `admission_date`, `discharge_date` FROM `patient`\nWHERE `discharge_date` IS " +
+                "NULL";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
         }
         

@@ -41,5 +41,23 @@ The program consists of 5 screens. Whenever a datagridview entry is modified, th
 - Manage Staff
     - Similar to patient management, we can add staff members, who will have their first and last name entered, along with a job title. A staff member can either be a nurse or doctor. Their phone number and email will need to be added. A random staff ID will be generated and they will be added to the database.
 
+# How to Build and Use
+1. Install XAMPP 8.0.30
+- [Installer](https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/8.0.30/xampp-windows-x64-8.0.30-0-VS16-installer.exe/download)
+
+2. Install MySQL Connector/ODBC 8.3.0 64-bit. (For some reason, the page mislabels it as x86, but the file should correctly say x64. 
+- [Installer](https://downloads.mysql.com/archives/get/p/10/file/mysql-connector-odbc-8.3.0-winx64.msi)
+
+3. Run an Apache server and run MariaDB.
+4. Open PHPMyAdmin and create a database named hospital.
+5. Click on the hospital database. Click Import. Import the hospital.sql file included with this repo.
+6. Open ODBC data sources 64-bit. 
+7. Add a User DSN with the MySQL ODBC 8.3.0 ANSI driver.
+8. Name the data source whatever you want. Set the TCP/IP server to be 127.0.0.1 and set the port to match XAMPP. It should be 3306 by default. 
+9. Enter the username as root and select hospital for the database. 
+10. Open the .csproj in Visual Studio. Click the project tab at the top and click add data source. Select the MariaDB DSN you just created.
+11. Build and run!
+
+
 Harry Jung, 2024
 

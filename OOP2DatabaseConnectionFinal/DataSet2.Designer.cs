@@ -3777,8 +3777,8 @@ namespace OOP2DatabaseConnectionFinal.DataSet2TableAdapters {
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.Odbc.OdbcCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "SELECT `bed_number`, `patient_number`, `room_number`, `ward_letter` FROM `bed`\r\nW" +
-                "HERE (room_number = ? AND ward_letter = ?)";
+            this._commandCollection[1].CommandText = "SELECT `bed_number`, `patient_number`, `room_number`, `ward_letter` FROM `bed`\nWH" +
+                "ERE (room_number = ? AND ward_letter = ?)";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.Odbc.OdbcParameter("room_number", global::System.Data.Odbc.OdbcType.Int, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "room_number", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[1].Parameters.Add(new global::System.Data.Odbc.OdbcParameter("ward_letter", global::System.Data.Odbc.OdbcType.VarChar, 1024, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ward_letter", global::System.Data.DataRowVersion.Current, false, null));
@@ -5668,7 +5668,7 @@ namespace OOP2DatabaseConnectionFinal.DataSet2TableAdapters {
             this._commandCollection[1].Connection = this.Connection;
             this._commandCollection[1].CommandText = "SELECT `procedure_id`, `procedure_name`, `patient_number`, `operating_staff_id`, " +
                 "`date_performed`, `date_scheduled`, `procedure_type`, `room_number`, `ward_lette" +
-                "r` FROM `procedure`\r\nWHERE `patient_number` = ?";
+                "r` FROM `procedure`\nWHERE `patient_number` = ?";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.Odbc.OdbcParameter("patient_number", global::System.Data.Odbc.OdbcType.Int, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "patient_number", global::System.Data.DataRowVersion.Current, false, null));
         }
@@ -6136,12 +6136,18 @@ namespace OOP2DatabaseConnectionFinal.DataSet2TableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.Odbc.OdbcCommand[1];
+            this._commandCollection = new global::System.Data.Odbc.OdbcCommand[2];
             this._commandCollection[0] = new global::System.Data.Odbc.OdbcCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT `patient_number`, `first_name`, `middle_name`, `last_name`, `contact_numbe" +
                 "r`, `admission_date`, `discharge_date` FROM `patient`";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::System.Data.Odbc.OdbcCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT `patient_number`, `first_name`, `middle_name`, `last_name`, `contact_numbe" +
+                "r`, `admission_date`, `discharge_date` FROM `patient` WHERE `discharge_date` IS " +
+                "NULL";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6163,6 +6169,30 @@ namespace OOP2DatabaseConnectionFinal.DataSet2TableAdapters {
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual DataSet2.patientDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            DataSet2.patientDataTable dataTable = new DataSet2.patientDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillBy(DataSet2.patientDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual DataSet2.patientDataTable GetDataBy() {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
             DataSet2.patientDataTable dataTable = new DataSet2.patientDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;

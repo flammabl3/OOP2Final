@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 14, 2024 at 04:49 AM
+-- Generation Time: Aug 14, 2024 at 06:28 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -41,12 +41,12 @@ CREATE TABLE `bed` (
 INSERT INTO `bed` (`bed_number`, `patient_number`, `room_number`, `ward_letter`) VALUES
 (1, NULL, 3001, 'C'),
 (3, NULL, 1001, 'A'),
+(4, NULL, 1001, 'A'),
 (5, NULL, 1001, 'A'),
+(6, NULL, 1001, 'A'),
 (7, NULL, 1001, 'A'),
 (1, 12345678, 1001, 'A'),
-(4, 17010713, 1001, 'A'),
-(6, 43145825, 1001, 'A'),
-(2, 96860548, 1001, 'A');
+(2, 24456948, 1001, 'A');
 
 -- --------------------------------------------------------
 
@@ -70,7 +70,7 @@ CREATE TABLE `medical_staff` (
 INSERT INTO `medical_staff` (`staff_id`, `first_name`, `last_name`, `contact_number`, `contact_email`, `title`) VALUES
 (123456789, 'John', 'Doe', '1112223333', 'jd@health.net', 'N'),
 (478429344, 'Jimmy', 'Doohan', '2131241241', 'HJ@health.net', 'D'),
-(934334928, 'Beverley', 'Crusher', '2131315556', 'BCrusher@enterprise.fed', 'D'),
+(938798111, 'Worf', 'Rozhenko', '1111111111', 'WorfR@health.net', 'N'),
 (987654321, 'Jane', 'Doe', '9995554321', 'JaneD@health.net', 'D');
 
 -- --------------------------------------------------------
@@ -95,10 +95,12 @@ CREATE TABLE `patient` (
 
 INSERT INTO `patient` (`patient_number`, `first_name`, `middle_name`, `last_name`, `contact_number`, `admission_date`, `discharge_date`) VALUES
 (12345678, 'Harry', 'Jabi', 'Jung', '4035555555', '2024-07-17', NULL),
-(13998382, 'Jimmy', NULL, 'Muller', '4039991234', '2024-07-01', '2024-08-13'),
+(13998382, 'Jimmy', NULL, 'Muller', '4039991234', '2024-07-01', NULL),
 (17010713, 'Jean-Luc', NULL, 'Picard', '5555555555', '2024-08-06', NULL),
-(41725146, 'John', NULL, 'Doe', '0987231134', '2024-02-06', '2024-08-13'),
+(24456948, 'William', 'Thomas', 'Riker', '1231314114', '2024-08-13', NULL),
+(41725146, 'John', NULL, 'Doe', '0987231134', '2024-02-06', NULL),
 (43145825, 'James', 'Tiberius', 'Kirk', '1234567890', '2024-08-12', NULL),
+(49529178, 'Henry', NULL, 'Jeong', '1234213212', '2024-08-13', '2024-08-13'),
 (78716824, 'Steven', NULL, 'Mbeki', '2132145551', '2024-08-13', NULL),
 (96860548, 'Geordi', NULL, 'LaForge', '0231903194', '2024-08-12', '2024-08-12');
 
@@ -125,14 +127,14 @@ CREATE TABLE `procedure` (
 --
 
 INSERT INTO `procedure` (`procedure_id`, `procedure_name`, `patient_number`, `operating_staff_id`, `date_performed`, `date_scheduled`, `procedure_type`, `room_number`, `ward_letter`) VALUES
+(185120817, 'Foot Wash', 49529178, 478429344, NULL, '2024-08-13', 'S', 1002, 'A'),
 (208497798, 'Foot Washing', 12345678, 123456789, NULL, '2024-08-13', 'C', NULL, NULL),
-(240772572, 'Brain Removal', 13998382, 934334928, '2024-08-13', '2024-08-16', 'S', 2001, 'B'),
 (434586914, 'Food Delivery', 12345678, 123456789, '2024-08-12', '2024-08-11', 'C', NULL, NULL),
-(464975852, 'Brain Removal', 96860548, 934334928, NULL, '2024-08-13', 'S', 1002, 'A'),
 (567403024, 'Food Delivery', 78716824, 123456789, NULL, '2024-08-13', 'C', NULL, NULL),
 (610180379, 'Kidney Surgery', 12345678, 987654321, '2024-08-13', '2024-08-11', 'S', 1002, 'A'),
-(867841050, 'Brain Removal', 96860548, 934334928, NULL, '2024-08-13', 'S', 1002, 'A'),
-(892593331, 'Food Delivery', 96860548, 123456789, NULL, '2024-08-24', 'C', NULL, NULL);
+(668145912, 'Foot Washing', 78716824, 987654321, '2024-08-13', '2024-08-13', 'S', 1002, 'A'),
+(892593331, 'Food Delivery', 96860548, 123456789, NULL, '2024-08-24', 'C', NULL, NULL),
+(896058700, 'Foot Massage', 12345678, 123456789, '2024-08-13', '2024-08-14', 'C', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -241,10 +243,10 @@ ALTER TABLE `bed`
 -- Constraints for table `procedure`
 --
 ALTER TABLE `procedure`
-  ADD CONSTRAINT `procedure_operating_staff_id_fk` FOREIGN KEY (`operating_staff_id`) REFERENCES `medical_staff` (`staff_id`),
-  ADD CONSTRAINT `procedure_patient_number_fk` FOREIGN KEY (`patient_number`) REFERENCES `patient` (`patient_number`),
-  ADD CONSTRAINT `procedure_room_number_fk` FOREIGN KEY (`room_number`) REFERENCES `room` (`room_number`),
-  ADD CONSTRAINT `procedure_ward_letter_fk` FOREIGN KEY (`ward_letter`) REFERENCES `room` (`ward_letter`);
+  ADD CONSTRAINT `procedure_operating_staff_id_fk` FOREIGN KEY (`operating_staff_id`) REFERENCES `medical_staff` (`staff_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `procedure_patient_number_fk` FOREIGN KEY (`patient_number`) REFERENCES `patient` (`patient_number`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `procedure_room_number_fk` FOREIGN KEY (`room_number`) REFERENCES `room` (`room_number`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `procedure_ward_letter_fk` FOREIGN KEY (`ward_letter`) REFERENCES `room` (`ward_letter`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `room`
