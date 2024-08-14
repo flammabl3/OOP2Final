@@ -12,7 +12,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-//TODO: Add an option for a bed with no patient.
+/* Author: Harry Jung
+ * This page fills the datagridview control depending on what room and ward are selected, and making a select query based on that.
+ * You can add another bed to the room and optionally assign a patient.
+ * The page checks for duplicates by checking for all patients currently in the room and prevents the user from assigning duplicates.
+ * Beds cannot be deleted in order to prevent issues with bed ordering. (i.e., bed 7 is deleted and now there is a bed missing from the room.)
+ * Users should set the bed to have No Patient instead.
+ * Only rooms marked as P for patient should be shown, as the rooms marked M are for surgeries.
+ * Insert is done with OdbcConnection.
+ */
 
 namespace OOP2DatabaseConnectionFinal
 {
@@ -23,7 +31,6 @@ namespace OOP2DatabaseConnectionFinal
         List<Room> roomsToBind;
         List<Patient> patientsToBind;
         List<int> existingPatientNumbers;
-        bool isLoaded;
         public RoomManagement() : base()
         {
             wardsToBind = new List<Ward>();
@@ -156,20 +163,44 @@ namespace OOP2DatabaseConnectionFinal
             e.Row.Cells[2].Value = comboBox1.Text;
         }
 
+        //both update and insert operations occur when a row is done validating, depending on the row state.
         private void dataGridView1_RowValidated(object sender, DataGridViewCellEventArgs e)
         {
             label3.Visible = false;
 
-            if (dataGridView1.Rows[e.RowIndex].IsNewRow || dataGridView1.Rows[e.RowIndex].Cells[3].Value == DBNull.Value)
+            if (dataGridView1.Rows[e.RowIndex].IsNewRow ||
+                dataGridView1.Rows[e.RowIndex].Cells[3].Value == null || 
+                dataGridView1.Rows[e.RowIndex].Cells[3].Value == DBNull.Value)
                 return;
 
             var row = (DataRowView)dataGridView1.Rows[e.RowIndex].DataBoundItem;
 
-            if (existingPatientNumbers.Contains(row.Row.Field<int>("patient_number")) && 
+            // If the patient number exists in a different row, then it's a duplicate
+            if (existingPatientNumbers.Contains(row.Row.Field<int>("patient_number")) &&
                 (row.Row.RowState == DataRowState.Added || row.Row.RowState == DataRowState.Modified))
             {
-                dataGridView1.Rows[e.RowIndex].Cells[3].Value = DBNull.Value;
-                label3.Visible = true;
+                //iterate through the rows. We store which patients were on which row before the user selected anything. 
+                // If the new selection is a duplicate but on the same row as where the original item was, that means the user just selected the same
+                // item was in the box before. i.e. Bed number 6 had John Doe assigned to it, and then John Doe was assigned to it again. If this happens, simply return with no further action.
+                int existingIndex = -1;
+                for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                {
+                    if (i != e.RowIndex && dataGridView1.Rows[i].Cells[3].Value != DBNull.Value) {
+                        if (Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value) == row.Row.Field<int>("patient_number"))
+                        {
+                            existingIndex = i;
+                            break;
+                        }
+                    }
+                }
+
+                if (existingIndex != -1 && existingIndex != e.RowIndex &&
+                    (row.Row.RowState == DataRowState.Added || row.Row.RowState == DataRowState.Modified))
+                {
+                    dataGridView1.Rows[e.RowIndex].Cells[3].Value = DBNull.Value;
+                    label3.Visible = true;
+                    updateExistingPatients();
+                }
                 return;
             }
 
@@ -185,37 +216,39 @@ namespace OOP2DatabaseConnectionFinal
                 {
                     if (Convert.ToString(dataGridView1.Rows[e.RowIndex].Cells[3].EditedFormattedValue) == "No Patient")
                         row.Row.SetField<int?>("patient_number", null);
-                    using (var connection = new System.Data.Odbc.OdbcConnection(OOP2DatabaseConnectionFinal.Properties.Settings.Default.ConnectionString))
+                    var connection = OdbcSingleton.Instance;
+                    string query = "UPDATE bed SET bed_number = ?, patient_number = ?, room_number = ?, ward_letter = ? WHERE (bed_number = ? AND room_number = ? AND ward_letter = ?)";
+                    using (var command = new System.Data.Odbc.OdbcCommand(query, connection))
                     {
-                        connection.Open();
-                        string query = "UPDATE bed SET bed_number = ?, patient_number = ?, room_number = ?, ward_letter = ? WHERE (bed_number = ? AND room_number = ? AND ward_letter = ?)";
-                        using (var command = new System.Data.Odbc.OdbcCommand(query, connection))
-                        {
-                            command.Parameters.AddWithValue("bed_number", row.Row.Field<int>("bed_number"));
+                        command.Parameters.AddWithValue("bed_number", row.Row.Field<int>("bed_number"));
 
-                            if (row.Row.Field<int?>("patient_number") == null)
-                                command.Parameters.AddWithValue("patient_number", DBNull.Value);
-                            else
-                                command.Parameters.AddWithValue("patient_number", row.Row.Field<int?>("patient_number"));
+                        if (row.Row.Field<int?>("patient_number") == null)
+                            command.Parameters.AddWithValue("patient_number", DBNull.Value);
+                        else
+                            command.Parameters.AddWithValue("patient_number", row.Row.Field<int?>("patient_number"));
 
-                            command.Parameters.AddWithValue("room_number", row.Row.Field<int>("room_number"));
-                            command.Parameters.AddWithValue("ward_letter", row.Row.Field<string>("ward_letter"));
+                        command.Parameters.AddWithValue("room_number", row.Row.Field<int>("room_number"));
+                        command.Parameters.AddWithValue("ward_letter", row.Row.Field<string>("ward_letter"));
 
-                            command.Parameters.AddWithValue("bed_number_ck", row.Row.Field<int>("bed_number"));
-                            command.Parameters.AddWithValue("room_number_ck", row.Row.Field<int>("room_number"));
-                            command.Parameters.AddWithValue("ward_letter_ck", row.Row.Field<string>("ward_letter"));
-                            command.ExecuteNonQuery();
-                        }
+                        command.Parameters.AddWithValue("bed_number_ck", row.Row.Field<int>("bed_number"));
+                        command.Parameters.AddWithValue("room_number_ck", row.Row.Field<int>("room_number"));
+                        command.Parameters.AddWithValue("ward_letter_ck", row.Row.Field<string>("ward_letter"));
+                        command.ExecuteNonQuery();
+
+                        
                     }
                 }
             }
 
             //update the list of patient numbers.
+            row.Row.AcceptChanges();
+            row.EndEdit();
             updateExistingPatients();
         }
 
         private void updateExistingPatients()
         {
+            existingPatientNumbers.Clear();
             foreach (DataRowView rowView in bedBindingSource)
             {
                 if (rowView.Row.Field<int?>("patient_number") != -1)
@@ -253,13 +286,14 @@ namespace OOP2DatabaseConnectionFinal
 
         }
 
-        private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+
+        private void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            var row = (DataRowView)e.Row.DataBoundItem;
-
-            bedTableAdapter.Delete(row.Row.Field<int>("bed_number"), row.Row.Field<int>("patient_number"),
-                row.Row.Field<int>("room_number"), row.Row.Field<string>("ward_letter"));
+            string errorHeader = dataGridView1.Columns[e.ColumnIndex].HeaderText;
+            MessageBox.Show($"Error in {errorHeader}, Row Number {e.RowIndex + 1}: {e.Exception.Message}",
+                            "Data Entry Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
         }
-
     }
 }

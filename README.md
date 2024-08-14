@@ -1,4 +1,4 @@
-# OOP2DatabaseConnectionFinal# Hospital Management Software
+# Hospital Management Software
 This project uses C#, ADO.net and its ODBC connector and adapters, Winforms, MySQL Connector/ODBC, and MariaDB hosted via XAMPP Apache.
 Using WinForms, we create a Form that has a TabControl element, with 5 tabs. Each tab has a BasicControl class which inherits from UserControl, a type of WinForms component.
 This Form will be added to each tab, creating 5 separate screens to manage the hospital.
@@ -40,12 +40,6 @@ The program consists of 5 screens. Whenever a datagridview entry is modified, th
     - The user can select a patient from a dropdown and edit their date of admission or discharge. If they have not been discharged, the user must press the discharge patient button. The admission date cannot be after the discharge date. You can also view a patient's procedures and mark them as completed here.
 - Manage Staff
     - Similar to patient management, we can add staff members, who will have their first and last name entered, along with a job title. A staff member can either be a nurse or doctor. Their phone number and email will need to be added. A random staff ID will be generated and they will be added to the database.
-
-# Setup on Your Device
-Install XAMPP
-Run an Apache server on ports 80, 443
-Run MariaDB on port 3306
-
 
 Harry Jung, 2024
 
